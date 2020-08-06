@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Brooming_pl.DBClasses;
+using NHibernate.Mapping.ByCode.Conformist;
+using System;
 namespace Brooming_pl.Mapping 
 { 
     public class UsersMap : ClassMapping<Users>
