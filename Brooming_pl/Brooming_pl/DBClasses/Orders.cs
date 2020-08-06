@@ -17,5 +17,7 @@ namespace Brooming_pl.DBClasses
         public virtual float Price { get; set; }
         public virtual string Additional_info { get; set; }
         public virtual int State_of_order { get; set; }
+
+        public virtual HashSet<Order_elements> ElementsOfOrder { get; set; }
     }
 }

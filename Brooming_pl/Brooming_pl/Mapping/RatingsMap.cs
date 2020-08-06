@@ -13,20 +13,13 @@ namespace Brooming_pl.Mapping
     {
         public RatingsMap()
         {
+            Schema("CDN");
             Table("Ratings");
             Id(x => x.Comment_id);
-
-            /*
-
-            Set(x => x.Company_id, x =>
-            {
-                x.Key(k => k.Column("Id"));
-                x.Inverse(true);
-            }, map => map.OneToMany(r => r.Class(typeof(Company))));
-
-            */
-            //OneToOne();
-
+            Property(x => x.Company_id);
+            Property(x => x.Rater_id);
+            Property(x => x.Rating);
+            Property(x => x.Comment);
         }
     }
 }

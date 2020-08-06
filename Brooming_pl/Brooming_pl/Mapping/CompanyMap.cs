@@ -12,6 +12,8 @@ namespace Brooming_pl.Mapping
     {
         public CompanyMap()
         {
+            Schema("CDN");
+            Table("Company");
             Id(x => x.Id);
             Property(x => x.Company_name);
             Property(x => x.Adress);
