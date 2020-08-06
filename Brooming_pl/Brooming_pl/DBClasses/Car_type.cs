@@ -4,7 +4,7 @@ namespace Brooming_pl.DBClasses
 {
 	public class Car_type
 	{
-		public virtual int Type_id { get; set; }
+		public virtual int Id { get; set; }
 		public virtual string Type { get; set; }
 		public virtual string Brand { get; set; }
 		public virtual string Model { get; set; }

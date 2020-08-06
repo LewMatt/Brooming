@@ -1,4 +1,6 @@
 ﻿using Brooming_pl.DBClasses;
+using Microsoft.Extensions.Configuration;
+using NHibernate.Mapping;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;
 namespace Brooming_pl.Mapping 
@@ -9,7 +11,7 @@ namespace Brooming_pl.Mapping
         {
             Schema("CDN");
             Table("Users");
-            Id(x => x.User_id);
+            Id(x => x.Id);
             Property(x => x.Login);
             Property(x => x.First_name);
             Property(x => x.Surname);
@@ -19,6 +21,26 @@ namespace Brooming_pl.Mapping
             Property(x => x.E_mail);
             Property(x => x.Link_to_avatar);
             Property(x => x.Role);
+
+            Set(x => x.CarsList, x =>
+            {   
+                x.Key(k => k.Column("Id"));
+                x.Inverse(true);
+            }, map => map.OneToMany(r => r.Class(typeof(Cars))));
+
+            Set(x => x.OffersList, x =>
+            {
+                x.Key(k => k.Column("Id"));
+                x.Inverse(true);
+            }, map => map.OneToMany(r => r.Class(typeof(Offers))));
+
+            Set(x => x.OrdersListHistory, x =>
+            {
+                x.Key(k => k.Column("Id"));
+                x.Inverse(true);
+            }, map => map.OneToMany(r => r.Class(typeof(History_of_orders))));
+
+
         }
     }
 }

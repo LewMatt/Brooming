@@ -7,7 +7,7 @@ namespace Brooming_pl.DBClasses
 {
     public class Orders
     {
-        public virtual int Order_id { get; set; }
+        public virtual int Id { get; set; }
         public virtual int Offer_id { get; set; }
         public virtual int User_id { get; set; }
         public virtual int Company_id { get; set; }

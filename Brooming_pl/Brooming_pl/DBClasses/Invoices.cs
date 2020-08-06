@@ -7,7 +7,7 @@ namespace Brooming_pl.DBClasses
 {
     public class Invoices
     {
-        public virtual int Invoice_id { get; set; }
+        public virtual int Id { get; set; }
         public virtual int Taker_id { get; set; }
         public virtual int Company_id { get; set; }
         public virtual DateTime Date_of_issue { get; set; }

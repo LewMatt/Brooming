@@ -25,6 +25,7 @@ namespace Brooming_pl
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //kod: var users= Session.query<users>().where(.=>..user_id=10).firstorde(
             services.AddControllers();
         }
 

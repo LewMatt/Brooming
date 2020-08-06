@@ -9,5 +9,7 @@ namespace Brooming_pl.DBClasses
         public virtual int Taker_id { get; set; }
         public virtual int Invoice_id { get; set; }
         public virtual float Price { get; set; }
+
+
     }
 }
