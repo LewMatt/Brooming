@@ -6,12 +6,14 @@ using Brooming_pl.DBClasses;
 
 namespace Brooming_pl.DBClasses
 {
-    
-    public class Cars {
-        public Cars() {
-			InvoiceElements = new List<InvoiceElements>();
-			OfferElements = new List<OfferElements>();
-			OrderElements = new List<OrderElements>();
+
+    public class Cars
+    {
+        public Cars()
+        {
+            InvoiceElements = new List<InvoiceElements>();
+            OfferElements = new List<OfferElements>();
+            OrderElements = new List<OrderElements>();
         }
         public virtual double CarId { get; set; }
         public virtual Users Users { get; set; }

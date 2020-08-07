@@ -6,14 +6,12 @@ using Brooming_pl.DBClasses;
 
 namespace Brooming_pl.DBClasses
 {
-    
-    public class Payments {
-        public Payments() {
-			Invoices = new List<Invoices>();
-        }
-        public virtual int InvoiceId { get; set; }
+
+    public class Payments
+    {
+        public virtual double PaymentId { get; set; }
+        public virtual Invoices Invoices { get; set; }
         public virtual DateTime? PaymentDate { get; set; }
         public virtual string PaymentType { get; set; }
-        public virtual IList<Invoices> Invoices { get; set; }
     }
 }

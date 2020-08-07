@@ -6,15 +6,17 @@ using Brooming_pl.DBClasses;
 
 namespace Brooming_pl.DBClasses
 {
-    
-    public class Users {
-        public Users() {
-			Cars = new List<Cars>();
-			HistoryOfOrders = new List<HistoryOfOrders>();
-			Invoices = new List<Invoices>();
-			Offers = new List<Offers>();
-			Orders = new List<Orders>();
-			Ratings = new List<Ratings>();
+
+    public class Users
+    {
+        public Users()
+        {
+            Cars = new List<Cars>();
+            HistoryOfOrders = new List<HistoryOfOrders>();
+            Invoices = new List<Invoices>();
+            Offers = new List<Offers>();
+            Orders = new List<Orders>();
+            Ratings = new List<Ratings>();
         }
         public virtual double UserId { get; set; }
         public virtual string Login { get; set; }

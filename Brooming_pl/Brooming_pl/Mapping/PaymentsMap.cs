@@ -9,17 +9,25 @@ using Brooming_pl.DBClasses;
 
 namespace Brooming_pl.mapping
 {
-    
-    
-    public class PaymentsMap : ClassMapping<Payments> {
-        
-        public PaymentsMap() {
-			Schema("dbo");
-			Lazy(true);
-			Id(x => x.InvoiceId, map => { map.Column("invoice_id"); map.Generator(Generators.Assigned); });
-			Property(x => x.PaymentDate, map => map.Column("payment_date"));
-			Property(x => x.PaymentType, map => map.Column("payment_type"));
-			Bag(x => x.Invoices, colmap =>  { colmap.Key(x => x.Column("invoice_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
+
+
+    public class PaymentsMap : ClassMapping<Payments>
+    {
+
+        public PaymentsMap()
+        {
+            Schema("dbo");
+            Lazy(true);
+            Id(x => x.PaymentId, map => { map.Column("payment_id"); map.Generator(Generators.Assigned); });
+            Property(x => x.PaymentDate, map => map.Column("payment_date"));
+            Property(x => x.PaymentType, map => map.Column("payment_type"));
+            ManyToOne(x => x.Invoices, map =>
+            {
+                map.Column("invoice_id");
+                map.PropertyRef("InvoiceId");
+                map.Cascade(Cascade.None);
+            });
+
         }
     }
 }

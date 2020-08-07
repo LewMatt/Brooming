@@ -5,10 +5,12 @@ using Brooming_pl.DBClasses;
 
 namespace Brooming_pl.DBClasses
 {
-    
-    public class CarType {
-        public CarType() {
-			Cars = new List<Cars>();
+
+    public class CarType
+    {
+        public CarType()
+        {
+            Cars = new List<Cars>();
         }
         public virtual int TypeId { get; set; }
         public virtual string Type { get; set; }

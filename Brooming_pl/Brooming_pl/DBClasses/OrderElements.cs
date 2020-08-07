@@ -6,8 +6,9 @@ using Brooming_pl.DBClasses;
 
 namespace Brooming_pl.DBClasses
 {
-    
-    public class OrderElements {
+
+    public class OrderElements
+    {
         public virtual double OrderId { get; set; }
         public virtual Orders Orders { get; set; }
         public virtual Cars Cars { get; set; }
