@@ -12,7 +12,7 @@ namespace Brooming_pl.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        public IActionResult Login(string login, string password)
+        public IActionResult Login()
         {
             try
             {
