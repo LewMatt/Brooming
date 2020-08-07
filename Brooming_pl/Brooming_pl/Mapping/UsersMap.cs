@@ -26,7 +26,7 @@ namespace Brooming_pl.mapping {
 			Property(x => x.EMail, map => map.Column("e_mail"));
 			Property(x => x.LinkToAvatar, map => map.Column("link_to_avatar"));
 			Property(x => x.Role);
-			Bag(x => x.Cars, colmap =>  { colmap.Key(x => x.Column("user_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
+			Bag(x => x.Cars, colmap =>  { colmap.Key(x => x.Column("user_id")); colmap.Inverse(true); }, map => { map.OneToMany(); }); 
 			Bag(x => x.HistoryOfOrders, colmap =>  { colmap.Key(x => x.Column("taker_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
 			Bag(x => x.Invoices, colmap =>  { colmap.Key(x => x.Column("taker_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
 			Bag(x => x.Offers, colmap =>  { colmap.Key(x => x.Column("user_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
