@@ -7,7 +7,9 @@ namespace Brooming_pl.DBClasses
 {
     
     public class CarType {
-        public CarType() { }
+        public CarType() {
+			Cars = new List<Cars>();
+        }
         public virtual int TypeId { get; set; }
         public virtual string Type { get; set; }
         public virtual string Brand { get; set; }
@@ -20,5 +22,6 @@ namespace Brooming_pl.DBClasses
         public virtual int? Capacity { get; set; }
         public virtual int? DoorQuantity { get; set; }
         public virtual int? SeatQuantity { get; set; }
+        public virtual IList<Cars> Cars { get; set; }
     }
 }

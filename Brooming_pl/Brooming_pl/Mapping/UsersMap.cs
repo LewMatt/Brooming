@@ -7,8 +7,7 @@ using NHibernate.Mapping.ByCode;
 using Brooming_pl.DBClasses;
 
 
-namespace Brooming_pl.Mapping
-{
+namespace Brooming_pl.mapping {
     
     
     public class UsersMap : ClassMapping<Users> {
@@ -28,8 +27,6 @@ namespace Brooming_pl.Mapping
 			Property(x => x.LinkToAvatar, map => map.Column("link_to_avatar"));
 			Property(x => x.Role);
 			Bag(x => x.Cars, colmap =>  { colmap.Key(x => x.Column("user_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
-			Bag(x => x.Company, colmap =>  { colmap.Key(x => x.Column("company_admin")); colmap.Inverse(true); }, map => { map.OneToMany(); });
-			Bag(x => x.Company, colmap =>  { colmap.Key(x => x.Column("company_agent")); colmap.Inverse(true); }, map => { map.OneToMany(); });
 			Bag(x => x.HistoryOfOrders, colmap =>  { colmap.Key(x => x.Column("taker_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
 			Bag(x => x.Invoices, colmap =>  { colmap.Key(x => x.Column("taker_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
 			Bag(x => x.Offers, colmap =>  { colmap.Key(x => x.Column("user_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });

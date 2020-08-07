@@ -6,7 +6,8 @@ using NHibernate.Mapping.ByCode.Conformist;
 using NHibernate.Mapping.ByCode;
 using Brooming_pl.DBClasses;
 
-namespace Brooming_pl.Mapping
+
+namespace Brooming_pl.mapping
 {
     
     
@@ -31,7 +32,7 @@ namespace Brooming_pl.Mapping
 				map.Cascade(Cascade.None);
 			});
 
-			Bag(x => x.Invoices, colmap =>  { colmap.Key(x => x.Column("invoice_id")); colmap.Inverse(true); }, map => { map.OneToMany(); }); //Kurwa jutro
+			Bag(x => x.Invoices, colmap =>  { colmap.Key(x => x.Column("invoice_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
         }
     }
 }

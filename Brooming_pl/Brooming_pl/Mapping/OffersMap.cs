@@ -7,11 +7,10 @@ using NHibernate.Mapping.ByCode;
 using Brooming_pl.DBClasses;
 
 
-namespace Brooming_pl.Mapping
-{
-    
-    
-    public class OffersMap : ClassMapping<Offers> {
+namespace Brooming_pl.mapping
+
+
+	public class OffersMap : ClassMapping<Offers> {
         
         public OffersMap() {
 			Schema("dbo");

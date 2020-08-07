@@ -6,7 +6,8 @@ using NHibernate.Mapping.ByCode.Conformist;
 using NHibernate.Mapping.ByCode;
 using Brooming_pl.DBClasses;
 
-namespace Brooming_pl.Mapping
+
+namespace Brooming_pl.mapping
 {
     
     
