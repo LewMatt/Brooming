@@ -1,23 +1,23 @@
-﻿using System;
+using System;
+using System.Text;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Brooming_pl.DBClasses;
 
 namespace Brooming_pl.DBClasses
 {
-    public class Orders
-    {
-        public virtual int Id { get; set; }
-        public virtual int Offer_id { get; set; }
-        public virtual int User_id { get; set; }
-        public virtual int Company_id { get; set; }
-        public virtual DateTime Date_of_order { get; set; }
-        public virtual string Order_number { get; set; }
-        public virtual string Order_details { get; set; }
-        public virtual float Price { get; set; }
-        public virtual string Additional_info { get; set; }
-        public virtual int State_of_order { get; set; }
-
-        public virtual HashSet<Order_elements> ElementsOfOrder { get; set; }
+    
+    public class Orders {
+        public Orders() { }
+        public virtual double OrderId { get; set; }
+        public virtual Offers Offers { get; set; }
+        public virtual Users Users { get; set; }
+        public virtual Company Company { get; set; }
+        public virtual double? CarId { get; set; }
+        public virtual DateTime? DateOfOrder { get; set; }
+        public virtual string OrderNumber { get; set; }
+        public virtual string OrderDetails { get; set; }
+        public virtual float? Price { get; set; }
+        public virtual string AdditionalInfo { get; set; }
+        public virtual int? StateOfOrder { get; set; }
     }
 }

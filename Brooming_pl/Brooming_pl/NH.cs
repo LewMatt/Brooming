@@ -1,4 +1,5 @@
 ﻿using Brooming_pl.Mapping;
+using Brooming_pl.DBClasses;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Dialect;

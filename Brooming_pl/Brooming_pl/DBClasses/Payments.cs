@@ -1,16 +1,15 @@
-﻿using System;
+using System;
+using System.Text;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Brooming_pl.DBClasses;
 
 namespace Brooming_pl.DBClasses
 {
-    public class Payments
-    {
-        public virtual int Invoice_id { get; set; }
-        public virtual DateTime Payment_date { get; set; }
-        public virtual string Payment_type { get; set; }
-
-
+    
+    public class Payments {
+        public Payments() { }
+        public virtual int InvoiceId { get; set; }
+        public virtual DateTime? PaymentDate { get; set; }
+        public virtual string PaymentType { get; set; }
     }
 }

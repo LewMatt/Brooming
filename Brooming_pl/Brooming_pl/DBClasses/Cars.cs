@@ -1,21 +1,21 @@
-﻿using System;
-
+using System;
+using System.Text;
+using System.Collections.Generic;
+using Brooming_pl.DBClasses;
 
 namespace Brooming_pl.DBClasses
 {
-    public class Cars
-    {
-        public virtual int Id { get; set; }
-        public virtual int User_id { get; set; }
-        public virtual int Company_id { get; set; }
-        public virtual int Type_id { get; set; }
-        public virtual string Registration_number { get; set; }
-        public virtual int Year_of_production { get; set; }
+    
+    public class Cars {
+        public Cars() { }
+        public virtual double CarId { get; set; }
+        public virtual Users Users { get; set; }
+        public virtual Company Company { get; set; }
+        public virtual CarType CarType { get; set; }
+        public virtual string RegistrationNumber { get; set; }
+        public virtual int? YearOfProduction { get; set; }
         public virtual string Description { get; set; }
-        public virtual string Link_to_photo { get; set; }
-        public virtual int Availability { get; set; }
-
-        public virtual Users User { get; set; }
-        public virtual Car_type CarType { get; set; }
+        public virtual string LinkToPhoto { get; set; }
+        public virtual int? Availability { get; set; }
     }
 }

@@ -1,21 +1,24 @@
-﻿using System;
+using System;
+using System.Text;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Brooming_pl.DBClasses;
 
 namespace Brooming_pl.DBClasses
 {
-    public class Invoices
-    {
-        public virtual int Id { get; set; }
-        public virtual int Taker_id { get; set; }
-        public virtual int Company_id { get; set; }
-        public virtual DateTime Date_of_issue { get; set; }
-        public virtual DateTime Deadline_of_payment { get; set; }
-        public virtual DateTime Date_of_invoicing { get; set; }
-        public virtual float Unit_price { get; set; }
-        public virtual String Taker_tax_number { get; set; }
-        public virtual float Discounts { get; set; }
-        public virtual int VAT { get; set; }
+    
+    public class Invoices {
+        public Invoices() { }
+        public virtual int InvoiceId { get; set; }
+        public virtual InvoiceElements InvoiceElements { get; set; }
+        public virtual Payments Payments { get; set; }
+        public virtual Users Users { get; set; }
+        public virtual Company Company { get; set; }
+        public virtual DateTime? DateOfIssue { get; set; }
+        public virtual DateTime? DeadlineOfPayment { get; set; }
+        public virtual DateTime? DateOfInvoicing { get; set; }
+        public virtual float? UnitPrice { get; set; }
+        public virtual string TakerTaxNumber { get; set; }
+        public virtual float? Discounts { get; set; }
+        public virtual int? Vat { get; set; }
     }
 }
