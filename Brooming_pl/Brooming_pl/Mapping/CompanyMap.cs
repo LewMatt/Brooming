@@ -10,10 +10,6 @@ using Brooming_pl.DBClasses;
 namespace Brooming_pl.mapping
 {
 
-
-    public class CompanyMap : ClassMapping<Company>
-    {
-
         public class CompanyMap : ClassMapping<Company>
         {
 
@@ -43,5 +39,4 @@ namespace Brooming_pl.mapping
                 Bag(x => x.Ratings, colmap => { colmap.Key(x => x.Column("company_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
             }
         }
-    }
 }
