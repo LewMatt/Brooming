@@ -30,8 +30,9 @@ namespace Brooming_pl
             try
             {
                 NH.Init(connStr);
+                
             }
-            catch (Exception es)
+            catch (Exception)
 
             {
 

@@ -22,10 +22,11 @@ namespace Brooming_pl.Controllers
                     user = session.Query<Users>().Where(x => x.UserId == 1).FirstOrDefault();
                 }
                 return Ok(user);
+
             }
-            catch(Exception es)
+            catch(Exception)
             {
-                return BadRequest();
+                return Ok();
             }
         }
 
