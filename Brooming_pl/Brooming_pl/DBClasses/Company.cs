@@ -17,6 +17,8 @@ namespace Brooming_pl.DBClasses
         }
         public virtual double CompanyId { get; set; }
         public virtual Users Users { get; set; }
+        public virtual Users CompanyAdmin { get; set; }
+        public virtual Users CompanyAgent { get; set; }
         public virtual string CompanyName { get; set; }
         public virtual string Adress { get; set; }
         public virtual float? AverageRating { get; set; }

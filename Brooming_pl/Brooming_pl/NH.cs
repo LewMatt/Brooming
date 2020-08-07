@@ -1,5 +1,4 @@
-﻿using Brooming_pl.Mapping;
-using Brooming_pl.DBClasses;
+﻿using Brooming_pl.DBClasses;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
@@ -9,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Brooming_pl.mapping;
 
 namespace Brooming_pl
 {
@@ -20,8 +20,6 @@ namespace Brooming_pl
         {
 
             typeof(UsersMap),
-            typeof(RatingsMap),
-            typeof(CompanyMap),
         };
 
         public static void Init(string connectionString, List<Type> customTypes = null)

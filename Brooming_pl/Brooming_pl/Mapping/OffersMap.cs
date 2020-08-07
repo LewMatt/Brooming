@@ -8,7 +8,7 @@ using Brooming_pl.DBClasses;
 
 
 namespace Brooming_pl.mapping
-
+{ 
 
 	public class OffersMap : ClassMapping<Offers> {
         
