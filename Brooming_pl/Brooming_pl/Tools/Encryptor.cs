@@ -12,7 +12,7 @@ namespace Brooming_pl.Tools
     {
         private const string initVector = "pemgail9uzpgzl88";
         private const int keysize = 256;
-        static string Encrypt(string toCode) {
+        public static string Encrypt(string toCode) {
             string codelock = "137405763028563850082367482357";
             return EncryptString(toCode, codelock);
         }
