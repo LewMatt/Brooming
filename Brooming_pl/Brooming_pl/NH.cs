@@ -1,4 +1,5 @@
-﻿using Brooming_pl.DBClasses;
+﻿using Brooming_pl.mapping;
+using Brooming_pl.DBClasses;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
@@ -8,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Brooming_pl.mapping;
 
 namespace Brooming_pl
 {
@@ -18,8 +18,20 @@ namespace Brooming_pl
 
         private static List<Type> typeMappings = new List<Type>()
         {
+            typeof(CarsMap),
+            typeof(CarTypeMap),
+            typeof(CompanyMap),
+            typeof(HistoryOfOrdersMap),
+            typeof(InvoiceElementsMap),
+            typeof(InvoicesMap),
+            typeof(OfferElementsMap),
+            typeof(OffersMap),
+            typeof(OrderElementsMap),
+            typeof(OrdersMap),
+            typeof(PaymentsMap),
+            typeof(RatingsMap),
+            typeof(UsersMap)
 
-            typeof(UsersMap),
         };
 
         public static void Init(string connectionString, List<Type> customTypes = null)
