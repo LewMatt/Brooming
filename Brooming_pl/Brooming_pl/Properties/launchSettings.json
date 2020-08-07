@@ -22,7 +22,7 @@
       }
     },
     "Brooming_pl": {
-      "commandName": "IISExpress",
+      "commandName": "IIS",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",
       "environmentVariables": {

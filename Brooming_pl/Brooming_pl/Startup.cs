@@ -25,6 +25,18 @@ namespace Brooming_pl
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connStr = "Server=DP17\\SQLEXPRESS;Database=broomingdb;User Id=sa;Password=Sagitum123;";
+
+            try
+            {
+                NH.Init(connStr);
+                
+            }
+            catch (Exception)
+
+            {
+
+            }
             //kod: var users= Session.query<users>().where(.=>..user_id=10).firstorde(
             services.AddControllers();
         }
