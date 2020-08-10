@@ -20,6 +20,7 @@ namespace Brooming_pl.Controllers
                 Users user = new Users();
                 using(var session = NH.OpenSession())
                 {
+
                     user = session.Query<Users>().Where(x => x.UserId == 1).FirstOrDefault();
                 }
                 return Ok(user);
