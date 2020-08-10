@@ -5,7 +5,8 @@ using System.Linq;
 using NHibernate.Mapping.ByCode.Conformist;
 using NHibernate.Mapping.ByCode;
 using Brooming_pl.DBClasses;
-
+using FluentNHibernate.Automapping.Steps;
+using NHibernate.Mapping;
 
 namespace Brooming_pl.mapping
 {
@@ -26,6 +27,9 @@ namespace Brooming_pl.mapping
             Property(x => x.EndTime, map => map.Column("end_time"));
             Property(x => x.AdditionalInfo, map => map.Column("additional_info"));
             Property(x => x.DailyPrice, map => map.Column("daily_price"));
+
+            OneToMany();
+
             //ManyToOne(x => x.Offers, map =>
             //{
             //    map.Column("offer_id");
