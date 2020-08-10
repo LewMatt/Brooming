@@ -27,7 +27,7 @@ namespace Brooming_pl.mapping
             ManyToOne(x => x.Users, map =>
             {
                 map.Column("user_id");
-                map.NotNullable(true);
+              //  map.NotNullable(true);
                 map.Cascade(Cascade.None);
             });
 
@@ -39,16 +39,16 @@ namespace Brooming_pl.mapping
                 map.Cascade(Cascade.None);
             });
 
-            ManyToOne(x => x.CarType, map =>
-            {
-                map.Column("type_id");
-                map.NotNullable(true);
-                map.Cascade(Cascade.None);
-            });
+            //ManyToOne(x => x.CarType, map =>
+            //{
+            //    map.Column("type_id");
+            //    map.NotNullable(true);
+            //    map.Cascade(Cascade.None);
+            //});
 
             Bag(x => x.InvoiceElements, colmap => { colmap.Key(x => x.Column("car_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
-            Bag(x => x.OfferElements, colmap => { colmap.Key(x => x.Column("car_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
-            Bag(x => x.OrderElements, colmap => { colmap.Key(x => x.Column("car_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
+            //Bag(x => x.OfferElements, colmap => { colmap.Key(x => x.Column("car_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
+            //Bag(x => x.OrderElements, colmap => { colmap.Key(x => x.Column("car_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
         }
     }
 }

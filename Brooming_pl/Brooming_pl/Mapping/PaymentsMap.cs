@@ -21,12 +21,12 @@ namespace Brooming_pl.mapping
             Id(x => x.PaymentId, map => { map.Column("payment_id"); map.Generator(Generators.Assigned); });
             Property(x => x.PaymentDate, map => map.Column("payment_date"));
             Property(x => x.PaymentType, map => map.Column("payment_type"));
-            ManyToOne(x => x.Invoices, map =>
-            {
-                map.Column("invoice_id");
-                map.PropertyRef("InvoiceId");
-                map.Cascade(Cascade.None);
-            });
+            //ManyToOne(x => x.Invoices, map =>
+            //{
+            //    map.Column("invoice_id");
+            //    map.PropertyRef("InvoiceId");
+            //    map.Cascade(Cascade.None);
+            //});
 
         }
     }

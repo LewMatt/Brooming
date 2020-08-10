@@ -11,8 +11,9 @@ namespace Brooming_pl.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
-    {
-        public IActionResult Login()
+    { 
+        [HttpGet("GetLogin")]
+        public IActionResult GetLogin()
         {
             try
             {
@@ -30,6 +31,7 @@ namespace Brooming_pl.Controllers
                 return Ok();
             }
         }
+        
 
     }
 }

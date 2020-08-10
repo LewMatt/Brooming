@@ -24,19 +24,19 @@ namespace Brooming_pl.mapping
                 Property(x => x.NumberOfRatings, map => map.Column("number_of_ratings"));
                 Property(x => x.SumOfRatings, map => map.Column("sum_of_ratings"));
                 Property(x => x.TaxNumber, map => map.Column("tax_number"));
-                ManyToOne(x => x.CompanyAdmin, map =>
-                {
-                    map.Column("company_admin");
-                    map.NotNullable(true);
-                    map.Cascade(Cascade.None);
-                });
+                //ManyToOne(x => x.CompanyAdmin, map =>
+                //{
+                //    map.Column("company_admin");
+                //    map.NotNullable(true);
+                //    map.Cascade(Cascade.None);
+                //});
 
-                Bag(x => x.CompanyAgents, colmap => { colmap.Key(x => x.Column("company_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
-                Bag(x => x.Cars, colmap => { colmap.Key(x => x.Column("company_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
-                Bag(x => x.HistoryOfOrders, colmap => { colmap.Key(x => x.Column("company_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
-                Bag(x => x.Invoices, colmap => { colmap.Key(x => x.Column("company_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
-                Bag(x => x.Orders, colmap => { colmap.Key(x => x.Column("company_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
-                Bag(x => x.Ratings, colmap => { colmap.Key(x => x.Column("company_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
+                //Bag(x => x.CompanyAgents, colmap => { colmap.Key(x => x.Column("company_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
+                //Bag(x => x.Cars, colmap => { colmap.Key(x => x.Column("company_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
+                //Bag(x => x.HistoryOfOrders, colmap => { colmap.Key(x => x.Column("company_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
+                //Bag(x => x.Invoices, colmap => { colmap.Key(x => x.Column("company_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
+                //Bag(x => x.Orders, colmap => { colmap.Key(x => x.Column("company_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
+                //Bag(x => x.Ratings, colmap => { colmap.Key(x => x.Column("company_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
             }
         }
 }
