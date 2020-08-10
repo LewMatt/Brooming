@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Brooming_pl.DBClasses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,6 +12,8 @@ namespace Brooming_pl.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+
+        
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -22,7 +25,7 @@ namespace Brooming_pl.Controllers
         {
             _logger = logger;
         }
-
+        /*
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
@@ -35,5 +38,17 @@ namespace Brooming_pl.Controllers
             })
             .ToArray();
         }
+        */
+
+        [HttpGet]
+        public IEnumerable<Users> Get()
+        {
+            using(var session = NH.OpenSession())
+            {
+                yield return session.Query<Users>().Where(x => x.UserId == 1).FirstOrDefault<Users>();
+            }
+        }
+
+
     }
 }

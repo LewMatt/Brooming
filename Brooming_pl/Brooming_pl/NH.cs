@@ -9,12 +9,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using ISession = NHibernate.ISession;
 
 namespace Brooming_pl
 {
     public class NH
     {
+        
         private static ISessionFactory SessionFactory;
+        
 
         private static List<Type> typeMappings = new List<Type>()
         {
@@ -70,6 +74,5 @@ namespace Brooming_pl
         {
             return SessionFactory.OpenSession();
         }
-
     }
 }

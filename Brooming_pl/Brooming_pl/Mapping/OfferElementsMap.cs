@@ -26,20 +26,20 @@ namespace Brooming_pl.mapping
             Property(x => x.EndTime, map => map.Column("end_time"));
             Property(x => x.AdditionalInfo, map => map.Column("additional_info"));
             Property(x => x.DailyPrice, map => map.Column("daily_price"));
-            ManyToOne(x => x.Offers, map =>
-            {
-                map.Column("offer_id");
-                map.PropertyRef("OfferId");
-                map.Cascade(Cascade.None);
-            });
+            //ManyToOne(x => x.Offers, map =>
+            //{
+            //    map.Column("offer_id");
+            //    map.PropertyRef("OfferId");
+            //    map.Cascade(Cascade.None);
+            //});
 
-            ManyToOne(x => x.Cars, map =>
-            {
-                map.Column("car_id");
-                map.PropertyRef("CarId");
-                map.NotNullable(true);
-                map.Cascade(Cascade.None);
-            });
+            //ManyToOne(x => x.Cars, map =>
+            //{
+            //    map.Column("car_id");
+            //    map.PropertyRef("CarId");
+            //    map.NotNullable(true);
+            //    map.Cascade(Cascade.None);
+            //});
 
         }
     }

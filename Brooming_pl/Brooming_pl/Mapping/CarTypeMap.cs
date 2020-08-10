@@ -31,7 +31,7 @@ namespace Brooming_pl.mapping
             Property(x => x.Capacity);
             Property(x => x.DoorQuantity, map => map.Column("door_quantity"));
             Property(x => x.SeatQuantity, map => map.Column("seat_quantity"));
-            Bag(x => x.Cars, colmap => { colmap.Key(x => x.Column("type_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
+           // Bag(x => x.Cars, colmap => { colmap.Key(x => x.Column("type_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
         }
     }
 }

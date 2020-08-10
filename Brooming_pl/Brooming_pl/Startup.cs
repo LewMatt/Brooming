@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Brooming_pl.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,12 +31,12 @@ namespace Brooming_pl
             try
             {
                 NH.Init(connStr);
-                
+
             }
-            catch (Exception)
+            catch (Exception es )
 
             {
-
+                
             }
             //kod: var users= Session.query<users>().where(.=>..user_id=10).firstorde(
             services.AddControllers();
