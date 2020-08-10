@@ -36,9 +36,9 @@ namespace Brooming_pl
 
             }
             catch (Exception es )
-
             {
                 
+
             }
             //kod: var users= Session.query<users>().where(.=>..user_id=10).firstorde(
             services.AddControllers();

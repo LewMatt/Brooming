@@ -22,8 +22,9 @@ namespace Brooming_pl.Controllers
                 {
 
                     user = session.Query<Users>().Where(x => x.UserId == 1).FirstOrDefault();
+
                 }
-                return Ok(user.FirstName);
+                return Ok(user.Role);
 
             }
             catch(Exception)
