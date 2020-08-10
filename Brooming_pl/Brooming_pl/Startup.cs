@@ -28,7 +28,7 @@ namespace Brooming_pl
         {
             //Server=DP17\\SQLEXPRESS;Database=broomingdb;User Id=sa;Password=Sagitum123;
             //Server=DP16\\SQLEXPRESS;Database=broomingdb;User Id=sa;Password=Sagitum123;
-            string connStr = "Server=DP16\\SQLEXPRESS;Database=broomingdb;User Id=sa;Password=Sagitum123;";
+            string connStr = "Server=DP17\\SQLEXPRESS;Database=broomingdb;User Id=sa;Password=Sagitum123;";
 
             try
             {
