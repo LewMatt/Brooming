@@ -7,7 +7,7 @@ namespace Brooming_pl.Model
 {
     public class LoginDTO
     {
-        public string Login { get; set }
+        public string Login { get; set; }
         public string Password { get; set; }
 
     }

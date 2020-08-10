@@ -28,8 +28,6 @@ namespace Brooming_pl.mapping
             Property(x => x.AdditionalInfo, map => map.Column("additional_info"));
             Property(x => x.DailyPrice, map => map.Column("daily_price"));
 
-            //OneToMany();
-
             //ManyToOne(x => x.Offers, map =>
             //{
             //    map.Column("offer_id");
