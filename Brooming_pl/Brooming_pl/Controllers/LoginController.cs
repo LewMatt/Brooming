@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Brooming_pl.DBClasses;
+using Brooming_pl.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,10 +31,16 @@ namespace Brooming_pl.Controllers
                 return Ok(user.Role);
 
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return Ok("");
             }
+        }
+        [HttpPost("Login")]
+        public IActionResult Login([FromBody]LoginDTO loginDTO) 
+        {
+            //loginDTO.Login;
+            return Ok();
         }
         public IActionResult GetRegister(string login, string password, string firstName, string surmane, string address, 
                                          DateTime dateOfBirth, int phoneNumber, string email, string linkToAvatar) 
