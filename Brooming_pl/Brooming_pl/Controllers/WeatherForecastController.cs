@@ -25,7 +25,7 @@ namespace Brooming_pl.Controllers
         {
             _logger = logger;
         }
-        /*
+        
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
@@ -38,8 +38,9 @@ namespace Brooming_pl.Controllers
             })
             .ToArray();
         }
-        */
+        
 
+        /*
         [HttpGet]
         public IEnumerable<Users> Get()
         {
@@ -48,7 +49,7 @@ namespace Brooming_pl.Controllers
                 yield return session.Query<Users>().Where(x => x.UserId == 1).FirstOrDefault<Users>();
             }
         }
-
+        */
 
     }
 }
