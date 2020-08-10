@@ -29,7 +29,6 @@ namespace Brooming_pl.Controllers
             catch(Exception)
             {
                 return Ok();
-
             }
         }
         
