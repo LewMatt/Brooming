@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Brooming_pl.DBClasses;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +14,7 @@ namespace Brooming_pl.Controllers
     public class LoginController : ControllerBase
     { 
         [HttpGet("GetLogin")]
-        public IActionResult GetLogin()
+        public IActionResult GetLogin(string login, string password)
         {
             try
             {
@@ -21,18 +22,26 @@ namespace Brooming_pl.Controllers
                 using(var session = NH.OpenSession())
                 {
 
-                    user = session.Query<Users>().Where(x => x.UserId == 1).FirstOrDefault();
-
+                    user = session.Query<Users>().Where(x => x.Login == login).Where(x => x.Password == password).FirstOrDefault();
+                    if (user == null) {
+                        return Ok("Wrong password or login");
+                    }
                 }
                 return Ok(user.Role);
 
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                return Ok();
+                return Ok("");
             }
         }
-        
+        public IActionResult GetRegister(string login, string password, string firstName, string surmane, string address, 
+                                         DateTime dateOfBirth, int phoneNumber, string email, string linkToAvatar) 
+        {
+
+
+            return Ok();
+        }
 
     }
 }

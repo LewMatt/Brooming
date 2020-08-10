@@ -26,31 +26,31 @@ namespace Brooming_pl.mapping
             Property(x => x.Price);
             Property(x => x.AdditionalInfo, map => map.Column("additional_info"));
             Property(x => x.StateOfOrder, map => map.Column("state_of_order"));
-            //ManyToOne(x => x.Offers, map =>
-            //{
-            //    map.Column("offer_id");
-            //    map.PropertyRef("OfferId");
-            //    map.NotNullable(true);
-            //    map.Cascade(Cascade.None);
-            //});
+            ManyToOne(x => x.Offers, map =>
+            {
+                map.Column("offer_id");
+                map.PropertyRef("OfferId");
+                map.NotNullable(true);
+                map.Cascade(Cascade.None);
+            });
 
-            //ManyToOne(x => x.Users, map =>
-            //{
-            //    map.Column("user_id");
-            //    map.NotNullable(true);
-            //    map.Cascade(Cascade.None);
-            //});
+            ManyToOne(x => x.Users, map =>
+            {
+                map.Column("user_id");
+                map.NotNullable(true);
+                map.Cascade(Cascade.None);
+            });
 
-            //ManyToOne(x => x.Company, map =>
-            //{
-            //    map.Column("company_id");
-            //    map.PropertyRef("CompanyId");
-            //    map.NotNullable(true);
-            //    map.Cascade(Cascade.None);
-            //});
+            ManyToOne(x => x.Company, map =>
+            {
+                map.Column("company_id");
+                map.PropertyRef("CompanyId");
+                map.NotNullable(true);
+                map.Cascade(Cascade.None);
+            });
 
-            //Bag(x => x.HistoryOfOrders, colmap => { colmap.Key(x => x.Column("order_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
-            //Bag(x => x.OrderElements, colmap => { colmap.Key(x => x.Column("order_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
+            Bag(x => x.HistoryOfOrders, colmap => { colmap.Key(x => x.Column("order_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
+            Bag(x => x.OrderElements, colmap => { colmap.Key(x => x.Column("order_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
         }
     }
 }

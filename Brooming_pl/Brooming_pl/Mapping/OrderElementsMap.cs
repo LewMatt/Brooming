@@ -30,13 +30,13 @@ namespace Brooming_pl.mapping
             //    map.Cascade(Cascade.None);
             //});
 
-            //ManyToOne(x => x.Cars, map =>
-            //{
-            //    map.Column("car_id");
-            //    map.PropertyRef("CarId");
-            //    map.NotNullable(true);
-            //    map.Cascade(Cascade.None);
-            //});
+            ManyToOne(x => x.Cars, map =>
+            {
+                map.Column("car_id");
+                map.PropertyRef("CarId");
+                map.NotNullable(true);
+                map.Cascade(Cascade.None);
+            });
 
         }
     }
