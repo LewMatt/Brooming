@@ -42,13 +42,7 @@ namespace Brooming_pl.Controllers
             //loginDTO.Login;
             return Ok();
         }
-        public IActionResult GetRegister(string login, string password, string firstName, string surmane, string address, 
-                                         DateTime dateOfBirth, int phoneNumber, string email, string linkToAvatar) 
-        {
 
-
-            return Ok();
-        }
 
     }
 }
