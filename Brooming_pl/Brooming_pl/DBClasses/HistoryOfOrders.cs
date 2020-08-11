@@ -8,7 +8,7 @@ namespace Brooming_pl.DBClasses
 {
     public class HistoryOfOrders
     {
-        public virtual double HistoryOrderId { get; set; }
+        public virtual int HistoryOrderId { get; set; }
         public virtual Orders Orders { get; set; }
         public virtual Company Company { get; set; }
         public virtual Users Users { get; set; }

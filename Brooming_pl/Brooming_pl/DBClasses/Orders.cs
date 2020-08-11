@@ -14,7 +14,7 @@ namespace Brooming_pl.DBClasses
             HistoryOfOrders = new List<HistoryOfOrders>();
             OrderElements = new List<OrderElements>();
         }
-        public virtual double OrderId { get; set; }
+        public virtual int OrderId { get; set; }
         public virtual Offers Offers { get; set; }
         public virtual Users Users { get; set; }
         public virtual Company Company { get; set; }

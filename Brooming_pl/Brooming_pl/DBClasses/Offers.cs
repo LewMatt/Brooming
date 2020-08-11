@@ -14,7 +14,7 @@ namespace Brooming_pl.DBClasses
             OfferElements = new List<OfferElements>();
             Orders = new List<Orders>();
         }
-        public virtual double OfferId { get; set; }
+        public virtual int OfferId { get; set; }
         public virtual Users Users { get; set; }
         public virtual string OfferDetail { get; set; }
         public virtual float? DailyPrice { get; set; }

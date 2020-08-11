@@ -9,7 +9,7 @@ namespace Brooming_pl.DBClasses
 
     public class OrderElements
     {
-        public virtual double OrderId { get; set; }
+        public virtual int OrderId { get; set; }
         public virtual Orders Orders { get; set; }
         public virtual Cars Cars { get; set; }
         public virtual float? DailyPrice { get; set; }

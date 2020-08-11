@@ -15,7 +15,7 @@ namespace Brooming_pl.DBClasses
             OfferElements = new List<OfferElements>();
             OrderElements = new List<OrderElements>();
         }
-        public virtual double CarId { get; set; }
+        public virtual int CarId { get; set; }
         public virtual Users Users { get; set; }
         public virtual Company Company { get; set; }
         public virtual CarType CarType { get; set; }

@@ -18,7 +18,7 @@ namespace Brooming_pl.DBClasses
             Orders = new List<Orders>();
             Ratings = new List<Ratings>();
         }
-        public virtual double UserId { get; set; }
+        public virtual int UserId { get; set; }
         public virtual string Login { get; set; }
         public virtual string Password { get; set; }
         public virtual string FirstName { get; set; }

@@ -9,7 +9,7 @@ namespace Brooming_pl.DBClasses
 
     public class Payments
     {
-        public virtual double PaymentId { get; set; }
+        public virtual int PaymentId { get; set; }
         public virtual Invoices Invoices { get; set; }
         public virtual DateTime? PaymentDate { get; set; }
         public virtual string PaymentType { get; set; }
