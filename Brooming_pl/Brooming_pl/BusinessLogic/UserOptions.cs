@@ -1,6 +1,8 @@
 ﻿using Brooming_pl.DBClasses;
 using Brooming_pl.Model;
 using Brooming_pl.Tools;
+using NHibernate.Linq;
+using NHibernate.Linq.ExpressionTransformers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +31,6 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-
         public static void AddCar(Users user, CarDTO carDTO)
         {
             try
@@ -113,6 +114,20 @@ namespace Brooming_pl.BusinessLogic
                     }
                 }
                 return company;
+            }
+            catch (Exception)
+            {
+                throw new System.Exception("Unknown exception");
+            }
+        }
+        public static void RemoveCar(Users user, Cars car) //skończ to gówno
+        {
+            try
+            {
+                using (var session = NH.OpenSession())
+                {
+                    session.Delete(session.Query<Cars>().Where(x => x.CarId == car.CarId).FirstOrDefault()); 
+                }
             }
             catch (Exception)
             {
