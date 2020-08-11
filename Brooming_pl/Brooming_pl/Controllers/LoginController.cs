@@ -13,14 +13,14 @@ namespace Brooming_pl.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
-    { 
+    {
         [HttpGet("GetLogin")]
         public IActionResult GetLogin(string login, string password)
         {
             try
             {
                 Users user = new Users();
-                using(var session = NH.OpenSession())
+                using (var session = NH.OpenSession())
                 {
 
                     user = session.Query<Users>().Where(x => x.Login == login).Where(x => x.Password == password).FirstOrDefault();
@@ -28,21 +28,65 @@ namespace Brooming_pl.Controllers
                         return Ok("Wrong password or login");
                     }
                 }
-                return Ok(user.Role);
+                return Ok(user.FirstName);
 
             }
-            catch(Exception)
+            catch (Exception)
             {
-                return Ok("");
+                return Ok("Nie dziala.");
             }
         }
-        [HttpPost("Login")]
-        public IActionResult Login([FromBody]LoginDTO loginDTO) 
+
+        [HttpGet("test")]
+        public string Test()
         {
-            //loginDTO.Login;
-            return Ok();
+            try
+            {
+                string test = "dziala";
+                return test;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+        
+        [HttpPost("Login")]
+        public LoginDTO Login([FromBody]LoginDTO loginDTO) 
+        {
+            try
+            {
+
+                Users user = new Users();
+
+                using (var session = NH.OpenSession())
+                {
+
+                    user = session.Query<Users>().Where(x => x.Login == loginDTO.Login).Where(x => x.Password == loginDTO.Password).FirstOrDefault();
+
+                    if (user == null)
+                    {
+                        return null;
+                    }
+                }
+                user.Password = "";
+
+                LoginDTO test = new LoginDTO()
+                {
+                    Login = user.Login,
+                    Password = user.Password
+                };
+
+                return test;
+            }
+
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
-
+        
     }
 }
