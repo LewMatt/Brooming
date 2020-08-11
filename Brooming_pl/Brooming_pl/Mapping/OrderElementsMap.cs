@@ -23,6 +23,7 @@ namespace Brooming_pl.mapping
             Property(x => x.DailyPrice, map => map.Column("daily_price"));
             Property(x => x.TakeLocation, map => map.Column("take_location"));
             Property(x => x.ReturnLocation, map => map.Column("return_location"));
+
             //ManyToOne(x => x.Orders, map =>
             //{
             //    map.Column("order_id");
