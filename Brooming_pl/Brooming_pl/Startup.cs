@@ -37,12 +37,22 @@ namespace Brooming_pl
             }
             catch (Exception)
             {
-                
+
             }
             //kod: var users= Session.query<users>().where(.=>..user_id=10).firstorde(
             services.AddControllers();
 
             services.AddSwaggerGen();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +78,8 @@ namespace Brooming_pl
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {
