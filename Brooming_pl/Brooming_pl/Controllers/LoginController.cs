@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Brooming_pl.BusinessLogic;
 using Brooming_pl.DBClasses;
 using Brooming_pl.Model;
 using Microsoft.AspNetCore.Http;
@@ -97,6 +98,19 @@ namespace Brooming_pl.Controllers
             }
         }
 
+        [HttpPost("Register")]
+        public RegisterDTO Register([FromBody] RegisterDTO registerDTO)
+        {
+            try
+            {
+                LoginOptions.RegisterIn(registerDTO);
+                return null;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
         
     }
 }
