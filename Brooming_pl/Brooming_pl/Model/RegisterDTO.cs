@@ -13,8 +13,8 @@ namespace Brooming_pl.Model
         public string Surname { get; set; }
         public string Adress { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public int Phonenumber { get; set; }
-        public string Email { get; set; }
+        public int PhoneNumber { get; set; }
+        public string EMail { get; set; }
         public string LinkToAvatar { get; set; }
     }
 }
