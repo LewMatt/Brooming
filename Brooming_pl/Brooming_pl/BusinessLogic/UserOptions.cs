@@ -1,0 +1,123 @@
+﻿using Brooming_pl.DBClasses;
+using Brooming_pl.Model;
+using Brooming_pl.Tools;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Brooming_pl.BusinessLogic
+{
+    public class UserOptions
+    {
+        public static List<Cars> MyCars(Users user) {
+            try
+            {
+                List<Cars> carList = new List<Cars>();
+                using (var session = NH.OpenSession())
+                {
+                    carList = session.Query<Cars>().Where(x => x.Users == user).ToList();
+                    if (carList == null)
+                    {
+                        throw new UsersExceptions("This user have no cars");
+                    }
+                }
+                return carList;
+            }
+            catch (Exception)
+            {
+                throw new System.Exception("Unknown exception");
+            }
+        }
+
+        public static void AddCar(Users user, CarDTO carDTO)
+        {
+            try
+            {
+                using (var session = NH.OpenSession())
+                {
+                    if (null != session.Query<Cars>().Where(x => x.RegistrationNumber == carDTO.RegistrationNumber).FirstOrDefault())
+                    {
+                        throw new UsersExceptions("Car with this registration number already exists");
+                    }
+                }
+                CarType carType = new CarType();
+                carType.Type = carDTO.CarType.Type;
+                carType.Brand = carDTO.CarType.Brand;
+                carType.Model = carDTO.CarType.Model;
+                carType.Color = carDTO.CarType.Color;
+                carType.Transmission = carDTO.CarType.Transmission;
+                carType.Fuel = carDTO.CarType.Fuel;
+                carType.FuelUsage = carDTO.CarType.FuelUsage;
+                carType.Power = carDTO.CarType.Power;
+                carType.Capacity = carDTO.CarType.Capacity;
+                carType.DoorQuantity = carDTO.CarType.DoorQuantity;
+                carType.SeatQuantity = carDTO.CarType.SeatQuantity;
+                CarType existing = new CarType();
+
+                Company company = new Company();
+                using (var session = NH.OpenSession())
+                {
+                    company = session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).FirstOrDefault();
+                }
+
+                Cars car = new Cars();
+                car.Users = user;
+                car.Company = company;
+                car.RegistrationNumber = carDTO.RegistrationNumber;
+                car.YearOfProduction = carDTO.YearOfProduction;
+                car.Description = carDTO.Description;
+                car.LinkToPhoto = carDTO.LinkToPhoto;
+
+                using (var session = NH.OpenSession())
+                {
+                    if (null != (existing = session.Query<CarType>().Where(x => x.Type == carType.Type).Where(x => x.Brand == carType.Brand).Where(x => x.Model == carType.Model)
+                                .Where(x => x.Color == carType.Color).Where(x => x.Transmission == carType.Transmission).Where(x => x.Fuel == carType.Fuel)
+                                .Where(x => x.FuelUsage == carType.FuelUsage).Where(x => x.Power == carType.Power).Where(x => x.Capacity == carType.Capacity)
+                                .Where(x => x.DoorQuantity == carType.DoorQuantity).Where(x => x.SeatQuantity == carType.SeatQuantity).FirstOrDefault()))
+                    {
+                        car.CarType = existing;
+                        session.Save(car);
+                    }
+                    else 
+                    {
+                        session.Save(carType);
+                        car.CarType = carType;
+                        session.Save(car);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw new System.Exception("Unknown exception");
+            }
+        }
+        public static Company RegisterCompany(CompanyDTO companyDTO, Users user) 
+        {
+            try
+            {
+                Company company = new Company();
+                company.CompanyName = companyDTO.CompanyName;
+                company.CompanyAdmin = user;
+                company.Adress = companyDTO.Adress;
+                company.TaxNumber = companyDTO.TaxNumber;
+                using (var session = NH.OpenSession())
+                {
+                    if (null != session.Query<Company>().Where(x => x.CompanyName == companyDTO.CompanyName).FirstOrDefault())
+                    {
+                        throw new UsersExceptions("This company already exists");
+                    }
+                    else
+                    {
+                        session.Save(company);
+                    }
+                }
+                return company;
+            }
+            catch (Exception)
+            {
+                throw new System.Exception("Unknown exception");
+            }
+        }
+    }
+}
