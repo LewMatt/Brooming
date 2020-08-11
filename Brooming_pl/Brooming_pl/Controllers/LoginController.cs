@@ -14,42 +14,42 @@ namespace Brooming_pl.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        [HttpGet("GetLogin")]
-        public IActionResult GetLogin(string login, string password)
-        {
-            try
-            {
-                Users user = new Users();
-                using (var session = NH.OpenSession())
-                {
+        //[HttpGet("GetLogin")]
+        //public IActionResult GetLogin(string login, string password)
+        //{
+        //    try
+        //    {
+        //        Users user = new Users();
+        //        using (var session = NH.OpenSession())
+        //        {
 
-                    user = session.Query<Users>().Where(x => x.Login == login).Where(x => x.Password == password).FirstOrDefault();
-                    if (user == null) {
-                        return Ok("Wrong password or login");
-                    }
-                }
-                return Ok(user.FirstName);
+        //            user = session.Query<Users>().Where(x => x.Login == login).Where(x => x.Password == password).FirstOrDefault();
+        //            if (user == null) {
+        //                return Ok("Wrong password or login");
+        //            }
+        //        }
+        //        return Ok(user);
 
-            }
-            catch (Exception)
-            {
-                return Ok("Nie dziala.");
-            }
-        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Ok("Nie dziala.");
+        //    }
+        //}
 
-        [HttpGet("test")]
-        public string Test()
-        {
-            try
-            {
-                string test = "dziala";
-                return test;
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //[HttpGet("test")]
+        //public string Test()
+        //{
+        //    try
+        //    {
+        //        string test = "dziala";
+        //        return test;
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
         
         
         [HttpPost("Login")]
@@ -72,13 +72,23 @@ namespace Brooming_pl.Controllers
                 }
                 user.Password = "";
 
-                LoginDTO test = new LoginDTO()
+                LoginDTO dtoObj = new LoginDTO()
                 {
+                    UserId = user.UserId,
                     Login = user.Login,
-                    Password = user.Password
+                    Password = user.Password,
+                    FirstName = user.FirstName,
+                    Surname = user.Surname,
+                    Adress = user.Adress,
+                    DateOfBirth = user.DateOfBirth,
+                    PhoneNumber = user.PhoneNumber,
+                    EMail = user.EMail,
+                    LinkToAvatar = user.LinkToAvatar,
+                    Role = user.Role
+
                 };
 
-                return test;
+                return dtoObj;
             }
 
             catch(Exception ex)
