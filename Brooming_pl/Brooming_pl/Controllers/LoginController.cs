@@ -112,6 +112,7 @@ namespace Brooming_pl.Controllers
                     }
                 }
 
+                DateTime dat = Convert.ToDateTime(registerDTO.DateOfBirth);
 
                 Users user = new Users()
                 {
@@ -120,7 +121,7 @@ namespace Brooming_pl.Controllers
                     FirstName = registerDTO.FirstName,
                     Surname = registerDTO.Surname,
                     Adress = registerDTO.Adress,
-                    DateOfBirth = registerDTO.DateOfBirth,
+                    DateOfBirth = dat,
                     PhoneNumber = registerDTO.PhoneNumber,
                     EMail = registerDTO.EMail,
                     LinkToAvatar = registerDTO.LinkToAvatar,

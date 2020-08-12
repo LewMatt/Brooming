@@ -33,48 +33,48 @@ namespace Brooming_pl.BusinessLogic
             }
         }
 
-        public static Users RegisterIn(RegisterDTO registerDTO) 
-        {
-            try
-            {
-                using (var session = NH.OpenSession())
-                {
-                    if (null != session.Query<Users>().Where(x => x.Login == registerDTO.Login).FirstOrDefault())
-                    {
-                        throw new UsersExceptions("User with that Login already exists");
-                    }
-                }
+        //public static Users RegisterIn(RegisterDTO registerDTO) 
+        //{
+        //    try
+        //    {
+        //        using (var session = NH.OpenSession())
+        //        {
+        //            if (null != session.Query<Users>().Where(x => x.Login == registerDTO.Login).FirstOrDefault())
+        //            {
+        //                throw new UsersExceptions("User with that Login already exists");
+        //            }
+        //        }
 
-                Users user = new Users();
+        //        Users user = new Users();
 
-                user.Login = registerDTO.Login;
-                user.Password = registerDTO.Password;
-                user.FirstName = registerDTO.FirstName;
-                user.Surname = registerDTO.Surname;
-                user.Adress = registerDTO.Adress;
-                user.DateOfBirth = registerDTO.DateOfBirth;
-                user.PhoneNumber = registerDTO.PhoneNumber;
-                user.EMail = registerDTO.EMail;
-                user.LinkToAvatar = registerDTO.LinkToAvatar;
-                user.Login = registerDTO.Login;
-                user.Role = "User";
+        //        user.Login = registerDTO.Login;
+        //        user.Password = registerDTO.Password;
+        //        user.FirstName = registerDTO.FirstName;
+        //        user.Surname = registerDTO.Surname;
+        //        user.Adress = registerDTO.Adress;
+        //        //user.DateOfBirth = registerDTO.DateOfBirth;
+        //        user.PhoneNumber = registerDTO.PhoneNumber;
+        //        user.EMail = registerDTO.EMail;
+        //        user.LinkToAvatar = registerDTO.LinkToAvatar;
+        //        user.Login = registerDTO.Login;
+        //        user.Role = "User";
 
-                using (var session = NH.OpenSession())
-                {
+        //        using (var session = NH.OpenSession())
+        //        {
                     
-                    session.Save(user);
+        //            session.Save(user);
 
-                    using (var transaction = session.BeginTransaction())
-                    {
-                        transaction.Commit();
-                    }
-                }
-                return user;
-            }
-            catch (Exception)
-            {
-                throw new System.Exception("Unknown exception");
-            }
-        }
+        //            using (var transaction = session.BeginTransaction())
+        //            {
+        //                transaction.Commit();
+        //            }
+        //        }
+        //        return user;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw new System.Exception("Unknown exception");
+        //    }
+        //}
     }
 }
