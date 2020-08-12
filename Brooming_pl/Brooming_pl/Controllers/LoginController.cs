@@ -126,7 +126,7 @@ namespace Brooming_pl.Controllers
                     LinkToAvatar = registerDTO.LinkToAvatar,
                     Role = "User"
                 };
-
+                
                 using (var session = NH.OpenSession())
                 {
 
@@ -144,7 +144,7 @@ namespace Brooming_pl.Controllers
             }
             catch(Exception ex)
             {
-                throw ex;
+               throw ex;
             }
         }
         
