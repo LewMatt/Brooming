@@ -18,7 +18,7 @@ namespace Brooming_pl.DBClasses
                 Ratings = new List<Ratings>();
                 CompanyAgents = new List<Users>();
             }
-            public virtual double CompanyId { get; set; }
+            public virtual int CompanyId { get; set; }
             public virtual Users Users { get; set; }
             public virtual Users CompanyAdmin { get; set; }
             public virtual string CompanyName { get; set; }

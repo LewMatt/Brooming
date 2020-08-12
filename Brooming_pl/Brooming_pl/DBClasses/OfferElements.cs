@@ -9,7 +9,7 @@ namespace Brooming_pl.DBClasses
 
     public class OfferElements
     {
-        public virtual double OfferId { get; set; }
+        public virtual int OfferId { get; set; }
         public virtual Offers Offers { get; set; }
         public virtual Cars Cars { get; set; }
         public virtual string TakeLocation { get; set; }
