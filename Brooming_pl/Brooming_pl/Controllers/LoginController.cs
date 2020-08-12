@@ -112,7 +112,11 @@ namespace Brooming_pl.Controllers
                     }
                 }
 
-                DateTime dat = Convert.ToDateTime(registerDTO.DateOfBirth);
+                if((DateTime.TryParse(registerDTO.DateOfBirth,out DateTime date) == false))
+                {
+                    return null;
+                }
+                DateTime dat = DateTime.Parse(registerDTO.DateOfBirth);
 
                 Users user = new Users()
                 {
