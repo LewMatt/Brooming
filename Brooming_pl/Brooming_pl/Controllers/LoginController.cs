@@ -103,8 +103,44 @@ namespace Brooming_pl.Controllers
         {
             try
             {
-                LoginOptions.RegisterIn(registerDTO);
-                return null;
+                using(var session = NH.OpenSession())
+                {
+                    int res = session.Query<Users>().Where(x => x.Login == registerDTO.Login).Count();
+                    if(res == 1)
+                    {
+                        return null;
+                    }
+                }
+
+
+                Users user = new Users()
+                {
+                    Login = registerDTO.Login,
+                    Password = registerDTO.Password,
+                    FirstName = registerDTO.FirstName,
+                    Surname = registerDTO.Surname,
+                    Adress = registerDTO.Adress,
+                    DateOfBirth = registerDTO.DateOfBirth,
+                    PhoneNumber = registerDTO.PhoneNumber,
+                    EMail = registerDTO.EMail,
+                    LinkToAvatar = registerDTO.LinkToAvatar,
+                    Role = "User"
+                };
+
+                using (var session = NH.OpenSession())
+                {
+
+                    session.Save(user);
+
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        transaction.Commit();
+                    }
+                }
+
+                return registerDTO;
+
+
             }
             catch(Exception ex)
             {
