@@ -46,20 +46,28 @@ namespace Brooming_pl.BusinessLogic
                 }
 
                 Users user = new Users();
+
+                user.Login = registerDTO.Login;
+                user.Password = registerDTO.Password;
+                user.FirstName = registerDTO.FirstName;
+                user.Surname = registerDTO.Surname;
+                user.Adress = registerDTO.Adress;
+                user.DateOfBirth = registerDTO.DateOfBirth;
+                user.PhoneNumber = registerDTO.PhoneNumber;
+                user.EMail = registerDTO.EMail;
+                user.LinkToAvatar = registerDTO.LinkToAvatar;
+                user.Login = registerDTO.Login;
+                user.Role = "User";
+
                 using (var session = NH.OpenSession())
                 {
-                    user.Login = registerDTO.Login;
-                    user.Password = registerDTO.Password;
-                    user.FirstName = registerDTO.FirstName;
-                    user.Surname = registerDTO.Surname;
-                    user.Adress = registerDTO.Adress;
-                    user.DateOfBirth = registerDTO.DateOfBirth;
-                    user.PhoneNumber = registerDTO.PhoneNumber;
-                    user.EMail = registerDTO.EMail;
-                    user.LinkToAvatar = registerDTO.LinkToAvatar;
-                    user.Login = registerDTO.Login;
-                    user.Role = "User";
+                    
                     session.Save(user);
+
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        transaction.Commit();
+                    }
                 }
                 return user;
             }
