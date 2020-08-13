@@ -98,21 +98,28 @@ namespace Brooming_pl.Controllers
             }
         }
 
+        //[HttpPost("Register")]
+        //public RegisterDTO Register([FromBody] RegisterDTO registerDTO)
+        //{
+        //    LoginOptions loginOpt = new LoginOptions();
+        //    return loginOpt.Register(registerDTO);
+        //}
+
         [HttpPost("Register")]
         public RegisterDTO Register([FromBody] RegisterDTO registerDTO)
         {
             try
             {
-                using(var session = NH.OpenSession())
+                using (var session = NH.OpenSession())
                 {
                     int res = session.Query<Users>().Where(x => x.Login == registerDTO.Login).Count();
-                    if(res == 1)
+                    if (res == 1)
                     {
                         return null;
                     }
                 }
 
-                if((DateTime.TryParse(registerDTO.DateOfBirth,out DateTime date) == false))
+                if ((DateTime.TryParse(registerDTO.DateOfBirth, out DateTime date) == false))
                 {
                     return null;
                 }
@@ -131,7 +138,7 @@ namespace Brooming_pl.Controllers
                     LinkToAvatar = registerDTO.LinkToAvatar,
                     Role = "User"
                 };
-                
+
                 using (var session = NH.OpenSession())
                 {
 
@@ -147,11 +154,11 @@ namespace Brooming_pl.Controllers
 
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-               throw ex;
+                throw ex;
             }
         }
-        
+
     }
 }

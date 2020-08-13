@@ -1,6 +1,7 @@
 ﻿using Brooming_pl.DBClasses;
 using Brooming_pl.Model;
 using Brooming_pl.Tools;
+using Microsoft.AspNetCore.Mvc;
 using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
@@ -61,7 +62,7 @@ namespace Brooming_pl.BusinessLogic
 
         //        using (var session = NH.OpenSession())
         //        {
-                    
+
         //            session.Save(user);
 
         //            using (var transaction = session.BeginTransaction())
@@ -76,5 +77,59 @@ namespace Brooming_pl.BusinessLogic
         //        throw new System.Exception("Unknown exception");
         //    }
         //}
+
+        public RegisterDTO Register(RegisterDTO registerDTO)
+        {
+            try
+            {
+                using (var session = NH.OpenSession())
+                {
+                    int res = session.Query<Users>().Where(x => x.Login == registerDTO.Login).Count();
+                    if (res == 1)
+                    {
+                        return null;
+                    }
+                }
+
+                if ((DateTime.TryParse(registerDTO.DateOfBirth, out DateTime date) == false))
+                {
+                    return null;
+                }
+                DateTime dat = DateTime.Parse(registerDTO.DateOfBirth);
+
+                Users user = new Users()
+                {
+                    Login = registerDTO.Login,
+                    Password = registerDTO.Password,
+                    FirstName = registerDTO.FirstName,
+                    Surname = registerDTO.Surname,
+                    Adress = registerDTO.Adress,
+                    DateOfBirth = dat,
+                    PhoneNumber = registerDTO.PhoneNumber,
+                    EMail = registerDTO.EMail,
+                    LinkToAvatar = registerDTO.LinkToAvatar,
+                    Role = "User"
+                };
+
+                using (var session = NH.OpenSession())
+                {
+
+                    session.Save(user);
+
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        transaction.Commit();
+                    }
+                }
+
+                return registerDTO;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

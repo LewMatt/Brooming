@@ -7,19 +7,32 @@ using System.Threading.Tasks;
 
 namespace Brooming_pl.Model
 {
+    [DataContract]
     public class LoginDTO
     {
-        public virtual double UserId { get; set; }
-        public virtual string Login { get; set; }
-        public virtual string Password { get; set; }
-        public virtual string FirstName { get; set; }
-        public virtual string Surname { get; set; }
-        public virtual string Adress { get; set; }
-        public virtual DateTime? DateOfBirth { get; set; }
-        public virtual double? PhoneNumber { get; set; }
-        public virtual string EMail { get; set; }
-        public virtual string LinkToAvatar { get; set; }
-        public virtual string Role { get; set; }
+        [DataMember]
+        public double UserId { get; set; }
+        [DataMember]
+        public string Login { get; set; }
+        [DataMember]
+        public string Password { get; set; }
+        [DataMember]
+        public string FirstName { get; set; }
+        [DataMember]
+        public string Surname { get; set; }
+        [DataMember]
+        public string Adress { get; set; }
+        [DataMember]
+        public DateTime? DateOfBirth { get; set; }
+        [DataMember]
+        public double? PhoneNumber { get; set; }
+        [DataMember]
+        public string EMail { get; set; }
+        [DataMember]
+        public string LinkToAvatar { get; set; }
+        [DataMember]
+        public string Role { get; set; }
         
+
     }
 }
