@@ -18,7 +18,7 @@ namespace Brooming_pl.mapping
         {
             Schema("dbo");
             Lazy(true);
-            Id(x => x.PaymentId, map => { map.Column("payment_id"); map.Generator(Generators.Assigned); });
+            Id(x => x.PaymentId, map => { map.Column("payment_id"); map.Generator(Generators.Identity); });
             Property(x => x.PaymentDate, map => map.Column("payment_date"));
             Property(x => x.PaymentType, map => map.Column("payment_type"));
             ManyToOne(x => x.Invoices, map =>

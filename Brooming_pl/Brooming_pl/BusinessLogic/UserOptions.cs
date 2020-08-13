@@ -12,7 +12,7 @@ namespace Brooming_pl.BusinessLogic
 {
     public class UserOptions
     {
-        public static List<Cars> MyCars(Users user) {
+        public static List<Cars> MyCarsUser(Users user) {
             try
             {
                 List<Cars> carList = new List<Cars>();
@@ -22,6 +22,26 @@ namespace Brooming_pl.BusinessLogic
                     if (carList == null)
                     {
                         throw new UsersExceptions("This user have no cars");
+                    }
+                }
+                return carList;
+            }
+            catch (Exception)
+            {
+                throw new System.Exception("Unknown exception");
+            }
+        }
+        public static List<Cars> MyCarsCompany(Company company) 
+        {
+            try
+            {
+                List<Cars> carList = new List<Cars>();
+                using (var session = NH.OpenSession())
+                {
+                    carList = session.Query<Cars>().Where(x => x.Company == company).ToList();
+                    if (carList == null)
+                    {
+                        throw new UsersExceptions("This company have no cars");
                     }
                 }
                 return carList;
@@ -69,13 +89,16 @@ namespace Brooming_pl.BusinessLogic
                 car.YearOfProduction = carDTO.YearOfProduction;
                 car.Description = carDTO.Description;
                 car.LinkToPhoto = carDTO.LinkToPhoto;
+                car.Availability = 1;
 
                 using (var session = NH.OpenSession())
                 {
-                    if (null != (existing = session.Query<CarType>().Where(x => x.Type == carType.Type).Where(x => x.Brand == carType.Brand).Where(x => x.Model == carType.Model)
-                                .Where(x => x.Color == carType.Color).Where(x => x.Transmission == carType.Transmission).Where(x => x.Fuel == carType.Fuel)
-                                .Where(x => x.FuelUsage == carType.FuelUsage).Where(x => x.Power == carType.Power).Where(x => x.Capacity == carType.Capacity)
-                                .Where(x => x.DoorQuantity == carType.DoorQuantity).Where(x => x.SeatQuantity == carType.SeatQuantity).FirstOrDefault()))
+                    if (null != (existing = session.Query<CarType>().Where(x => x.Type == carType.Type)                 .Where(x => x.Brand == carType.Brand)
+                                                                    .Where(x => x.Model == carType.Model)               .Where(x => x.Color == carType.Color)
+                                                                    .Where(x => x.Transmission == carType.Transmission) .Where(x => x.Fuel == carType.Fuel)
+                                                                    .Where(x => x.FuelUsage == carType.FuelUsage)       .Where(x => x.Power == carType.Power)
+                                                                    .Where(x => x.Capacity == carType.Capacity)         .Where(x => x.DoorQuantity == carType.DoorQuantity)
+                                                                    .Where(x => x.SeatQuantity == carType.SeatQuantity) .FirstOrDefault()))
                     {
                         car.CarType = existing;
                         session.Save(car);
@@ -120,13 +143,46 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static void RemoveCar(Users user, Cars car) //skończ to gówno
+        public static void RemoveCar(Users user, Cars car)
         {
             try
             {
                 using (var session = NH.OpenSession())
                 {
+                    if(null == session.Query<Cars>().Where(x => x.CarId == car.CarId).FirstOrDefault())
+                    {
+                        throw new UsersExceptions("Car does not exist");
+                    }
                     session.Delete(session.Query<Cars>().Where(x => x.CarId == car.CarId).FirstOrDefault()); 
+                }
+            }
+            catch (Exception)
+            {
+                throw new System.Exception("Unknown exception");
+            }
+        }
+        //public static void DeleteUser(Users user)
+        //{
+
+        //}
+        public static void AddOffer(List<OfferElements> listOfElements, Users user, OfferDTO offerDTO)
+        {
+            try
+            {
+                Offers offer = new Offers();
+                offer.Users = user;
+                offer.OfferDetail = offerDTO.OfferDetail;
+                offer.DailyPrice = offerDTO.DailyPrice;
+                offer.AdditionalInfo = offerDTO.AdditionalInfo;
+                offer.OfferElements = listOfElements;
+
+                using (var session = NH.OpenSession())
+                {
+                    session.Save(offer);
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        transaction.Commit();
+                    }
                 }
             }
             catch (Exception)
