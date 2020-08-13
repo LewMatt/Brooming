@@ -58,10 +58,7 @@ namespace Brooming_pl
 
             try
             {
-
                 config.AddDeserializedMapping(mapper.CompileMappingForAllExplicitlyAddedEntities(), null);
-
-
                 SessionFactory = config.BuildSessionFactory();
             }
             catch

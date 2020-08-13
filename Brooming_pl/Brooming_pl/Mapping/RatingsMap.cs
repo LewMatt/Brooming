@@ -18,7 +18,7 @@ namespace Brooming_pl.mapping
         {
             Schema("dbo");
             Lazy(true);
-            Id(x => x.CommentId, map => { map.Column("comment_id"); map.Generator(Generators.Assigned); });
+            Id(x => x.CommentId, map => { map.Column("comment_id"); map.Generator(Generators.Identity); });
             Property(x => x.Rating);
             Property(x => x.Comment);
             ManyToOne(x => x.Company, map =>

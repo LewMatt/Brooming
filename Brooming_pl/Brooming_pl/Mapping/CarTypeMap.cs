@@ -19,7 +19,7 @@ namespace Brooming_pl.mapping
             Table("car_type");
             Schema("dbo");
             Lazy(true);
-            Id(x => x.TypeId, map => { map.Column("type_id"); map.Generator(Generators.Assigned); });
+            Id(x => x.TypeId, map => { map.Column("type_id"); map.Generator(Generators.Identity); });
             Property(x => x.Type);
             Property(x => x.Brand);
             Property(x => x.Model);

@@ -17,7 +17,7 @@ namespace Brooming_pl.mapping
             Table("history_of_orders");
             Schema("dbo");
             Lazy(true);
-            Id(x => x.HistoryOrderId, map => { map.Column("history_order_id"); map.Generator(Generators.Assigned); });
+            Id(x => x.HistoryOrderId, map => { map.Column("history_order_id"); map.Generator(Generators.Identity); });
             Property(x => x.PaymentId, map => map.Column("payment_id"));
             Property(x => x.Price);
             ManyToOne(x => x.Orders, map =>

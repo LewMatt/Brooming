@@ -17,7 +17,7 @@ namespace Brooming_pl.mapping
         {
             Schema("dbo");
             Lazy(true);
-            Id(x => x.OfferId, map => { map.Column("offer_id"); map.Generator(Generators.Assigned); });
+            Id(x => x.OfferId, map => { map.Column("offer_id"); map.Generator(Generators.Identity); });
             Property(x => x.OfferDetail, map => map.Column("offer_detail"));
             Property(x => x.DailyPrice, map => map.Column("daily_price"));
             Property(x => x.AdditionalInfo, map => map.Column("additional_info"));
