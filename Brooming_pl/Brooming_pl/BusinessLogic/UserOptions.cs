@@ -12,7 +12,7 @@ namespace Brooming_pl.BusinessLogic
 {
     public class UserOptions
     {
-        public static List<Cars> MyCarsUser(Users user) {
+        public static List<Cars> MyCars(Users user) {
             try
             {
                 List<Cars> carList = new List<Cars>();
@@ -22,26 +22,6 @@ namespace Brooming_pl.BusinessLogic
                     if (carList == null)
                     {
                         throw new UsersExceptions("This user have no cars");
-                    }
-                }
-                return carList;
-            }
-            catch (Exception)
-            {
-                throw new System.Exception("Unknown exception");
-            }
-        }
-        public static List<Cars> MyCarsCompany(Company company) 
-        {
-            try
-            {
-                List<Cars> carList = new List<Cars>();
-                using (var session = NH.OpenSession())
-                {
-                    carList = session.Query<Cars>().Where(x => x.Company == company).ToList();
-                    if (carList == null)
-                    {
-                        throw new UsersExceptions("This company have no cars");
                     }
                 }
                 return carList;
@@ -93,17 +73,15 @@ namespace Brooming_pl.BusinessLogic
 
                 using (var session = NH.OpenSession())
                 {
-                    if (null != (existing = session.Query<CarType>().Where(x => x.Type == carType.Type)                 .Where(x => x.Brand == carType.Brand)
-                                                                    .Where(x => x.Model == carType.Model)               .Where(x => x.Color == carType.Color)
-                                                                    .Where(x => x.Transmission == carType.Transmission) .Where(x => x.Fuel == carType.Fuel)
-                                                                    .Where(x => x.FuelUsage == carType.FuelUsage)       .Where(x => x.Power == carType.Power)
-                                                                    .Where(x => x.Capacity == carType.Capacity)         .Where(x => x.DoorQuantity == carType.DoorQuantity)
-                                                                    .Where(x => x.SeatQuantity == carType.SeatQuantity) .FirstOrDefault()))
+                    if (null != (existing = session.Query<CarType>().Where(x => x.Type == carType.Type).Where(x => x.Brand == carType.Brand).Where(x => x.Model == carType.Model)
+                                .Where(x => x.Color == carType.Color).Where(x => x.Transmission == carType.Transmission).Where(x => x.Fuel == carType.Fuel)
+                                .Where(x => x.FuelUsage == carType.FuelUsage).Where(x => x.Power == carType.Power).Where(x => x.Capacity == carType.Capacity)
+                                .Where(x => x.DoorQuantity == carType.DoorQuantity).Where(x => x.SeatQuantity == carType.SeatQuantity).FirstOrDefault()))
                     {
                         car.CarType = existing;
                         session.Save(car);
                     }
-                    else 
+                    else
                     {
                         session.Save(carType);
                         car.CarType = carType;
@@ -116,7 +94,7 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static Company RegisterCompany(CompanyDTO companyDTO, Users user) 
+        public static Company RegisterCompany(CompanyDTO companyDTO, Users user)
         {
             try
             {
@@ -149,10 +127,6 @@ namespace Brooming_pl.BusinessLogic
             {
                 using (var session = NH.OpenSession())
                 {
-                    if(null == session.Query<Cars>().Where(x => x.CarId == car.CarId).FirstOrDefault())
-                    {
-                        throw new UsersExceptions("Car does not exist");
-                    }
                     session.Delete(session.Query<Cars>().Where(x => x.CarId == car.CarId).FirstOrDefault()); 
                 }
             }
@@ -192,3 +166,4 @@ namespace Brooming_pl.BusinessLogic
         }
     }
 }
+
