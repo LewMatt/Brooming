@@ -14,13 +14,13 @@ namespace Brooming_pl.BusinessLogic
 {
     public class UserOptions
     {
-        public static List<Cars> GetMyCarsUser(Users user) {
+        public static List<Cars> GetMyCarsUser(int userId) {
             try
             {
                 List<Cars> carList = new List<Cars>();
                 using (var session = NH.OpenSession())
                 {
-                    carList = session.Query<Cars>().Where(x => x.Users == user).ToList();
+                    carList = session.Query<Cars>().Where(x => x.Users.UserId == userId).ToList();
                     if (carList == null)
                     {
                         throw new UsersExceptions("This user have no cars");
@@ -53,7 +53,7 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static void AddCar(Users user, CarDTO carDTO)
+        public static void AddCar(int userId, CarDTO carDTO)
         {
             try
             {
@@ -79,9 +79,11 @@ namespace Brooming_pl.BusinessLogic
                 CarType existing = new CarType();
 
                 Company company = new Company();
+                Users user = new Users();
                 using (var session = NH.OpenSession())
                 {
                     company = session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).FirstOrDefault();
+                    user = session.Query<Users>().Where(x => x.UserId == userId).FirstOrDefault();
                 }
 
                 Cars car = new Cars();
@@ -118,10 +120,15 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static Company RegisterCompany(CompanyDTO companyDTO, Users user) 
+        public static Company RegisterCompany(CompanyDTO companyDTO, int userId) 
         {
             try
             {
+                Users user = new Users();
+                using (var session = NH.OpenSession())
+                {
+                    user = session.Query<Users>().Where(x => x.UserId == userId).FirstOrDefault();
+                }
                 Company company = new Company();
                 company.CompanyName = companyDTO.CompanyName;
                 company.CompanyAdmin = user;
@@ -145,7 +152,7 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static void RemoveCar(Users user, Cars car)
+        public static void RemoveCar( Cars car)
         {
             try
             {
@@ -167,10 +174,15 @@ namespace Brooming_pl.BusinessLogic
         //{
 
         //}
-        public static void AddRating(Users user, Company company, RatingDTO rating)
+        public static void AddRating(int userId, Company company, RatingDTO rating)
         {
             try
             {
+                Users user = new Users();
+                using (var session = NH.OpenSession())
+                {
+                    user = session.Query<Users>().Where(x => x.UserId == userId).FirstOrDefault();
+                }
                 Ratings rate = new Ratings();
                 rate.Comment = rating.Comment;
                 rate.Company = company;
@@ -245,10 +257,15 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static void AddOffer(List<OfferElementsDTO> listOfElements, Users user, OfferDTO offerDTO)
+        public static void AddOffer(List<OfferElementsDTO> listOfElements, int userId, OfferDTO offerDTO)
         {
             try
             {
+                Users user = new Users();
+                using (var session = NH.OpenSession())
+                {
+                    user = session.Query<Users>().Where(x => x.UserId == userId).FirstOrDefault();
+                }
                 Offers offer = new Offers();
                 offer.Users = user;
                 offer.OfferDetail = offerDTO.OfferDetail;
@@ -295,14 +312,14 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static List<Offers> GetMyOffersUser(Users user)
+        public static List<Offers> GetMyOffersUser(int userId)
         {
             try
             {
                 List<Offers> offersList = new List<Offers>();
                 using (var session = NH.OpenSession())
                 {
-                    offersList = session.Query<Offers>().Where(x => x.Users == user).ToList();
+                    offersList = session.Query<Offers>().Where(x => x.Users.UserId == userId).ToList();
                     if (offersList == null)
                     {
                         throw new UsersExceptions("This user have no offers");
