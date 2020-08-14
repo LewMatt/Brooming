@@ -28,11 +28,13 @@ namespace Brooming_pl.mapping
             Property(x => x.Discounts);
             Property(x => x.Vat);
 
-            //Set(x => x.InvoiceElements, colmap => {
-            //    colmap.Cascade(Cascade.All);
-            //    colmap.Lazy(CollectionLazy.NoLazy);
-            //    colmap.Key(x => x.Column("invoice_id")); 
-            //    colmap.Inverse(true); }, map => { map.OneToMany(x => x.Class(typeof(InvoiceElements))); });
+            Set(x => x.InvoiceElements, colmap =>
+            {
+                colmap.Cascade(Cascade.All);
+                colmap.Lazy(CollectionLazy.NoLazy);
+                colmap.Key(x => x.Column("invoice_id"));
+                colmap.Inverse(true);
+            }, map => { map.OneToMany(x => x.Class(typeof(InvoiceElements))); });
 
             ManyToOne(x => x.Users, map =>
             {

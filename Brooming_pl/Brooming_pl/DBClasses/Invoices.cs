@@ -15,7 +15,7 @@ namespace Brooming_pl.DBClasses
             Payments = new List<Payments>();
         }
         public virtual int InvoiceId { get; set; }
-        public virtual InvoiceElements InvoiceElements { get; set; }
+        public virtual IList<InvoiceElements> InvoiceElements { get; set; }
         public virtual Users Users { get; set; }
         public virtual Company Company { get; set; }
         public virtual DateTime? DateOfIssue { get; set; }
