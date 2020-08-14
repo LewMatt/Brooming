@@ -153,7 +153,8 @@ namespace Brooming_pl.BusinessLogic
             }
             catch (Exception ex)
             {
-                throw ex;
+                companyDTO.CompanyName = "This company already exists";
+                return companyDTO;
             }
         }
         public static void RemoveCar( Cars car)
