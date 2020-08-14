@@ -188,10 +188,7 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        //public static void DeleteUser(Users user)
-        //{
-
-        //}
+        //public static void DeleteUser(Users user){}
         public static void AddRating(int userId, int companyId, RatingDTO rating)
         {
             try
@@ -381,6 +378,5 @@ namespace Brooming_pl.BusinessLogic
                 throw e;
             }
         }
-
     }
 }
