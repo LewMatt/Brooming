@@ -8,12 +8,29 @@ using NHibernate.Linq.ExpressionTransformers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
 namespace Brooming_pl.BusinessLogic
 {
     public class UserOptions
     {
+        public static Users GetUsers(int userId) 
+        {
+            try
+            {
+                Users user = new Users();
+                using (var session = NH.OpenSession())
+                {
+                    user = session.Query<Users>().Where(x => x.UserId == userId).FirstOrDefault();
+                }
+                return user;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
         public static List<Cars> GetMyCarsUser(int userId) {
             try
             {
@@ -65,17 +82,17 @@ namespace Brooming_pl.BusinessLogic
                     }
                 }
                 CarType carType = new CarType();
-                carType.Type = carDTO.CarType.Type;
-                carType.Brand = carDTO.CarType.Brand;
-                carType.Model = carDTO.CarType.Model;
-                carType.Color = carDTO.CarType.Color;
-                carType.Transmission = carDTO.CarType.Transmission;
-                carType.Fuel = carDTO.CarType.Fuel;
-                carType.FuelUsage = carDTO.CarType.FuelUsage;
-                carType.Power = carDTO.CarType.Power;
-                carType.Capacity = carDTO.CarType.Capacity;
-                carType.DoorQuantity = carDTO.CarType.DoorQuantity;
-                carType.SeatQuantity = carDTO.CarType.SeatQuantity;
+                carType.Type = carDTO.Type;
+                carType.Brand = carDTO.Brand;
+                carType.Model = carDTO.Model;
+                carType.Color = carDTO.Color;
+                carType.Transmission = carDTO.Transmission;
+                carType.Fuel = carDTO.Fuel;
+                carType.FuelUsage = carDTO.FuelUsage;
+                carType.Power = carDTO.Power;
+                carType.Capacity = carDTO.Capacity;
+                carType.DoorQuantity = carDTO.DoorQuantity;
+                carType.SeatQuantity = carDTO.SeatQuantity;
                 CarType existing = new CarType();
 
                 Company company = new Company();
@@ -124,11 +141,7 @@ namespace Brooming_pl.BusinessLogic
         {
             try
             {
-                Users user = new Users();
-                using (var session = NH.OpenSession())
-                {
-                    user = session.Query<Users>().Where(x => x.UserId == companyDTO.UserId).FirstOrDefault();
-                }
+                Users user = GetUsers(companyDTO.UserId);
                 Company company = new Company();
                 company.CompanyName = companyDTO.CompanyName;
                 company.CompanyAdmin = user;
@@ -179,7 +192,7 @@ namespace Brooming_pl.BusinessLogic
         //{
 
         //}
-        public static void AddRating(int userId, Company company, RatingDTO rating)
+        public static void AddRating(int userId, int companyId, RatingDTO rating)
         {
             try
             {
@@ -189,6 +202,11 @@ namespace Brooming_pl.BusinessLogic
                     user = session.Query<Users>().Where(x => x.UserId == userId).FirstOrDefault();
                 }
                 Ratings rate = new Ratings();
+                Company company = new Company();
+                using (var session = NH.OpenSession())
+                {
+                    company = session.Query<Company>().Where(x => x.CompanyId == companyId).FirstOrDefault();
+                }
                 rate.Comment = rating.Comment;
                 rate.Company = company;
                 rate.Rating = rating.Rating;
@@ -206,6 +224,17 @@ namespace Brooming_pl.BusinessLogic
                         {
                             transaction.Commit();
                         }
+                    }
+                }
+                company.SumOfRatings += rate.Rating;
+                company.NumberOfRatings += 1;
+                company.AverageRating = (float)(company.SumOfRatings / company.NumberOfRatings);
+                using (var session = NH.OpenSession())
+                {
+                    session.Save(company);
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        transaction.Commit();
                     }
                 }
             }
@@ -266,11 +295,7 @@ namespace Brooming_pl.BusinessLogic
         {
             try
             {
-                Users user = new Users();
-                using (var session = NH.OpenSession())
-                {
-                    user = session.Query<Users>().Where(x => x.UserId == userId).FirstOrDefault();
-                }
+                Users user = GetUsers(userId);
                 Offers offer = new Offers();
                 offer.Users = user;
                 offer.OfferDetail = offerDTO.OfferDetail;
@@ -335,6 +360,25 @@ namespace Brooming_pl.BusinessLogic
             catch (Exception)
             {
                 throw new System.Exception("Unknown exception");
+            }
+        }
+        public static RatingSummaryDTO GetMyRating(RatingSummaryDTO ratingSummary) 
+        {
+            try
+            {
+                using (var session = NH.OpenSession())
+                {
+                    ratingSummary.AverageRating = session.Query<Company>().Where(x => x.CompanyId == ratingSummary.CompanyID).FirstOrDefault().AverageRating;
+                    if (ratingSummary.AverageRating == null)
+                    {
+                        throw new UsersExceptions("This company have no ratings");
+                    }
+                }
+                return ratingSummary;
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 

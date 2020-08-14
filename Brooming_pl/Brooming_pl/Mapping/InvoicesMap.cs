@@ -6,6 +6,7 @@ using NHibernate.Mapping.ByCode.Conformist;
 using NHibernate.Mapping.ByCode;
 using Brooming_pl.DBClasses;
 using NHibernate.Mapping;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Brooming_pl.mapping
 {
@@ -27,12 +28,11 @@ namespace Brooming_pl.mapping
             Property(x => x.Discounts);
             Property(x => x.Vat);
 
-            //ManyToOne(x => x.InvoiceElements, map =>
-            //{
-            //    map.Column("invoice_id");
-            //    map.PropertyRef("InvoiceId");
-            //    map.Cascade(Cascade.None);
-            //});
+            //Set(x => x.InvoiceElements, colmap => {
+            //    colmap.Cascade(Cascade.All);
+            //    colmap.Lazy(CollectionLazy.NoLazy);
+            //    colmap.Key(x => x.Column("invoice_id")); 
+            //    colmap.Inverse(true); }, map => { map.OneToMany(x => x.Class(typeof(InvoiceElements))); });
 
             ManyToOne(x => x.Users, map =>
             {
