@@ -3,6 +3,7 @@ using Brooming_pl.Model;
 using Brooming_pl.Tools;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate.Linq;
+using NHibernate.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,73 +13,55 @@ namespace Brooming_pl.BusinessLogic
 {
     public class LoginOptions
     {
-        public static Users LogIn(LoginDTO loginDTO)
+ 
+        public static LoginDTO Login(LoginDTO loginDTO)
         {
             try
             {
+
                 Users user = new Users();
+
                 using (var session = NH.OpenSession())
                 {
 
                     user = session.Query<Users>().Where(x => x.Login == loginDTO.Login).Where(x => x.Password == loginDTO.Password).FirstOrDefault();
+
                     if (user == null)
                     {
-                        throw new UsersExceptions("User not found");
+                        return null;
                     }
                 }
-                return user;
+                user.Password = "";
+
+                LoginDTO dtoObj = new LoginDTO()
+                {
+                    UserId = user.UserId,
+                    Login = user.Login,
+                    Password = user.Password,
+                    FirstName = user.FirstName,
+                    Surname = user.Surname,
+                    Adress = user.Adress,
+                    DateOfBirth = user.DateOfBirth,
+                    PhoneNumber = user.PhoneNumber,
+                    EMail = user.EMail,
+                    LinkToAvatar = user.LinkToAvatar,
+                    Role = user.Role,
+                    
+
+
+                };
+
+                return dtoObj;
             }
-            catch (Exception)
+
+            catch (Exception ex)
             {
-                throw new System.Exception("Unknown exception");
+                throw ex;
             }
         }
 
-        //public static Users RegisterIn(RegisterDTO registerDTO) 
-        //{
-        //    try
-        //    {
-        //        using (var session = NH.OpenSession())
-        //        {
-        //            if (null != session.Query<Users>().Where(x => x.Login == registerDTO.Login).FirstOrDefault())
-        //            {
-        //                throw new UsersExceptions("User with that Login already exists");
-        //            }
-        //        }
 
-        //        Users user = new Users();
-
-        //        user.Login = registerDTO.Login;
-        //        user.Password = registerDTO.Password;
-        //        user.FirstName = registerDTO.FirstName;
-        //        user.Surname = registerDTO.Surname;
-        //        user.Adress = registerDTO.Adress;
-        //        //user.DateOfBirth = registerDTO.DateOfBirth;
-        //        user.PhoneNumber = registerDTO.PhoneNumber;
-        //        user.EMail = registerDTO.EMail;
-        //        user.LinkToAvatar = registerDTO.LinkToAvatar;
-        //        user.Login = registerDTO.Login;
-        //        user.Role = "User";
-
-        //        using (var session = NH.OpenSession())
-        //        {
-
-        //            session.Save(user);
-
-        //            using (var transaction = session.BeginTransaction())
-        //            {
-        //                transaction.Commit();
-        //            }
-        //        }
-        //        return user;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw new System.Exception("Unknown exception");
-        //    }
-        //}
-
-        public RegisterDTO Register(RegisterDTO registerDTO)
+        public static RegisterDTO Register(RegisterDTO registerDTO)
         {
             try
             {

@@ -94,33 +94,72 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static Company RegisterCompany(CompanyDTO companyDTO, Users user)
+        //public static void RegisterCompany(AddCompanyDTO addCompanyDTO)
+        //{
+        //    try
+        //    {
+        //        Company company = new Company();
+        //        company.CompanyName = addCompanyDTO.companyDTO.CompanyName;
+        //        company.CompanyAdmin = addCompanyDTO.user;
+        //        company.Adress = addCompanyDTO.companyDTO.Adress;
+        //        company.TaxNumber = addCompanyDTO.companyDTO.TaxNumber;
+        //        using (var session = NH.OpenSession())
+        //        {
+        //            if (null != session.Query<Company>().Where(x => x.CompanyName == company.CompanyName).FirstOrDefault())
+        //            {
+        //                throw new UsersExceptions("This company already exists");
+        //            }
+        //            else
+        //            {
+        //                session.Save(company);
+
+        //                using (var transaction = session.BeginTransaction())
+        //                {
+        //                    transaction.Commit();
+        //                }
+        //            }
+        //        }
+
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw new System.Exception("Unknown exception");
+        //    }
+        //}
+
+        public static void RegisterCompany(CompanyDTO companyDTO)
         {
             try
             {
                 Company company = new Company();
                 company.CompanyName = companyDTO.CompanyName;
-                company.CompanyAdmin = user;
+                company.CompanyAdmin = companyDTO.User;
                 company.Adress = companyDTO.Adress;
                 company.TaxNumber = companyDTO.TaxNumber;
                 using (var session = NH.OpenSession())
                 {
-                    if (null != session.Query<Company>().Where(x => x.CompanyName == companyDTO.CompanyName).FirstOrDefault())
+                    if (null != session.Query<Company>().Where(x => x.CompanyName == company.CompanyName).FirstOrDefault())
                     {
                         throw new UsersExceptions("This company already exists");
                     }
                     else
                     {
                         session.Save(company);
+
+                        using (var transaction = session.BeginTransaction())
+                        {
+                            transaction.Commit();
+                        }
                     }
                 }
-                return company;
+
             }
             catch (Exception)
             {
                 throw new System.Exception("Unknown exception");
             }
         }
+
         public static void RemoveCar(Users user, Cars car)
         {
             try

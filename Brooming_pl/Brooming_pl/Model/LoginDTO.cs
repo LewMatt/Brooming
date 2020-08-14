@@ -11,7 +11,7 @@ namespace Brooming_pl.Model
     public class LoginDTO
     {
         [DataMember]
-        public double UserId { get; set; }
+        public int UserId { get; set; }
         [DataMember]
         public string Login { get; set; }
         [DataMember]
@@ -23,9 +23,9 @@ namespace Brooming_pl.Model
         [DataMember]
         public string Adress { get; set; }
         [DataMember]
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
         [DataMember]
-        public double? PhoneNumber { get; set; }
+        public int PhoneNumber { get; set; }
         [DataMember]
         public string EMail { get; set; }
         [DataMember]
