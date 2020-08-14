@@ -17,6 +17,6 @@ namespace Brooming_pl.Model
         [DataMember]
         public string TaxNumber { set; get; }
         [DataMember]
-        public Users User { set; get; }
+        public int UserId { set; get; }
     }
 }

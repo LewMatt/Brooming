@@ -98,11 +98,11 @@ namespace Brooming_pl.BusinessLogic
                 {
 
                     session.Save(user);
-
                     using (var transaction = session.BeginTransaction())
                     {
                         transaction.Commit();
                     }
+
                 }
 
                 return registerDTO;

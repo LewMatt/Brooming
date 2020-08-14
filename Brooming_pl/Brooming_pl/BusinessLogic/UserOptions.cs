@@ -120,14 +120,14 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static Company RegisterCompany(CompanyDTO companyDTO, int userId) 
+        public static CompanyDTO RegisterCompany(CompanyDTO companyDTO) 
         {
             try
             {
                 Users user = new Users();
                 using (var session = NH.OpenSession())
                 {
-                    user = session.Query<Users>().Where(x => x.UserId == userId).FirstOrDefault();
+                    user = session.Query<Users>().Where(x => x.UserId == companyDTO.UserId).FirstOrDefault();
                 }
                 Company company = new Company();
                 company.CompanyName = companyDTO.CompanyName;
@@ -143,13 +143,17 @@ namespace Brooming_pl.BusinessLogic
                     else
                     {
                         session.Save(company);
+                        using (var transaction = session.BeginTransaction())
+                        {
+                            transaction.Commit();
+                        }
                     }
                 }
-                return company;
+                return companyDTO;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new System.Exception("Unknown exception");
+                throw ex;
             }
         }
         public static void RemoveCar( Cars car)

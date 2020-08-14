@@ -16,8 +16,7 @@ namespace Brooming_pl.Controllers
         [HttpPost("AddCompany")]
         public CompanyDTO AddCompany([FromBody] CompanyDTO companyDTO)
         {
-            UserOptions.RegisterCompany(companyDTO);
-            return companyDTO;
+            return UserOptions.RegisterCompany(companyDTO);
         }
     }
 }
