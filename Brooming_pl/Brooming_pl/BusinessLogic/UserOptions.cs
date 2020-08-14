@@ -1,6 +1,8 @@
 ﻿using Brooming_pl.DBClasses;
 using Brooming_pl.Model;
 using Brooming_pl.Tools;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using NHibernate.Linq;
 using NHibernate.Linq.ExpressionTransformers;
 using System;
@@ -12,7 +14,7 @@ namespace Brooming_pl.BusinessLogic
 {
     public class UserOptions
     {
-        public static List<Cars> MyCarsUser(Users user) {
+        public static List<Cars> GetMyCarsUser(Users user) {
             try
             {
                 List<Cars> carList = new List<Cars>();
@@ -31,7 +33,7 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static List<Cars> MyCarsCompany(Company company) 
+        public static List<Cars> GetMyCarsCompany(Company company) 
         {
             try
             {
@@ -165,7 +167,85 @@ namespace Brooming_pl.BusinessLogic
         //{
 
         //}
-        public static void AddOffer(List<OfferElements> listOfElements, Users user, OfferDTO offerDTO)
+        public static void AddRating(Users user, Company company, RatingDTO rating)
+        {
+            try
+            {
+                Ratings rate = new Ratings();
+                rate.Comment = rating.Comment;
+                rate.Company = company;
+                rate.Rating = rating.Rating;
+                rate.Users = user;
+                using (var session = NH.OpenSession())
+                {
+                    if (null != session.Query<Ratings>().Where(x => x.Users == user).Where(x => x.Company == company))
+                    {
+                        throw new UsersExceptions("This user already rated this company");
+                    }
+                    else
+                    {
+                        session.Save(rate);
+                        using (var transaction = session.BeginTransaction())
+                        {
+                            transaction.Commit();
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw new System.Exception("Unknown exception");
+            }
+
+        }
+        public static OfferElements AddOfferElement(OfferElementsDTO offerElementsDTO, int Id) 
+        {
+            try
+            {
+                Cars car = new Cars();
+                using (var session = NH.OpenSession())
+                {
+                    car = session.Query<Cars>().Where(x => x.CarId == offerElementsDTO.CarId).FirstOrDefault();
+
+                }
+                OfferElements offerElement = new OfferElements();
+                offerElement.Cars = car;
+                offerElement.DailyPrice = offerElementsDTO.DailyPrice;
+                offerElement.StartTime = offerElementsDTO.StartTime;
+                offerElement.EndTime = offerElementsDTO.EndTime;
+                offerElement.DailyPrice = offerElementsDTO.DailyPrice;
+                offerElement.TakeLocation = offerElementsDTO.TakeLocation;
+                offerElement.ReturnLocation = offerElementsDTO.TakeLocation;
+                offerElement.AdditionalInfo = offerElementsDTO.AdditionalInfo;
+
+                using (var session = NH.OpenSession())
+                {
+                    if (null != session.Query<Cars>().Where(x => x.CarId == offerElementsDTO.CarId).Where(x => x.Availability == 0))
+                    {
+                        throw new UsersExceptions("This car is not avalible");
+                    }
+                    else
+                    {
+                        car.Availability = 0;
+                        session.Save(car);
+                    }
+                }
+                using (var session = NH.OpenSession())
+                {
+                    session.Save(offerElement);
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        transaction.Commit();
+                    }
+                }
+                return offerElement;
+            }
+            catch (Exception)
+            {
+                throw new System.Exception("Unknown exception");
+            }
+        }
+        public static void AddOffer(List<OfferElementsDTO> listOfElements, Users user, OfferDTO offerDTO)
         {
             try
             {
@@ -174,7 +254,6 @@ namespace Brooming_pl.BusinessLogic
                 offer.OfferDetail = offerDTO.OfferDetail;
                 offer.DailyPrice = offerDTO.DailyPrice;
                 offer.AdditionalInfo = offerDTO.AdditionalInfo;
-                offer.OfferElements = listOfElements;
 
                 using (var session = NH.OpenSession())
                 {
@@ -184,11 +263,58 @@ namespace Brooming_pl.BusinessLogic
                         transaction.Commit();
                     }
                 }
+                foreach(OfferElementsDTO i in listOfElements)
+                {
+                    offer.OfferElements.Append(AddOfferElement(i, offer.OfferId));
+                }
+                
+
+            }
+            catch (Exception)
+            {
+                throw new System.Exception("Unknown exception");
+            }
+        }   
+        public static List<Ratings> GetMyRatingsCompany(Company company)
+        {
+            try
+            {
+                List<Ratings> ratingsList = new List<Ratings>();
+                using (var session = NH.OpenSession())
+                {
+                    ratingsList = session.Query<Ratings>().Where(x => x.Company == company).ToList();
+                    if (ratingsList == null)
+                    {
+                        throw new UsersExceptions("This company have no ratings");
+                    }
+                }
+                return ratingsList;
             }
             catch (Exception)
             {
                 throw new System.Exception("Unknown exception");
             }
         }
+        public static List<Offers> GetMyOffersUser(Users user)
+        {
+            try
+            {
+                List<Offers> offersList = new List<Offers>();
+                using (var session = NH.OpenSession())
+                {
+                    offersList = session.Query<Offers>().Where(x => x.Users == user).ToList();
+                    if (offersList == null)
+                    {
+                        throw new UsersExceptions("This user have no offers");
+                    }
+                }
+                return offersList;
+            }
+            catch (Exception)
+            {
+                throw new System.Exception("Unknown exception");
+            }
+        }
+
     }
 }
