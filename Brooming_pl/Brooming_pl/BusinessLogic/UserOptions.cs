@@ -197,24 +197,24 @@ namespace Brooming_pl.BusinessLogic
             }
         }
         //public static void DeleteUser(Users user){}
-        public static void AddRating(int userId, int companyId, RatingDTO rating)
+        public static void AddRating(AddRatingDTO addRatingDTO)
         {
             try
             {
                 Users user = new Users();
                 using (var session = NH.OpenSession())
                 {
-                    user = session.Query<Users>().Where(x => x.UserId == userId).FirstOrDefault();
+                    user = session.Query<Users>().Where(x => x.UserId == addRatingDTO.UserId).FirstOrDefault();
                 }
                 Ratings rate = new Ratings();
                 Company company = new Company();
                 using (var session = NH.OpenSession())
                 {
-                    company = session.Query<Company>().Where(x => x.CompanyId == companyId).FirstOrDefault();
+                    company = session.Query<Company>().Where(x => x.CompanyId == addRatingDTO.CompanyId).FirstOrDefault();
                 }
-                rate.Comment = rating.Comment;
+                rate.Comment = addRatingDTO.Comment;
                 rate.Company = company;
-                rate.Rating = rating.Rating;
+                rate.Rating = addRatingDTO.Rating;
                 rate.Users = user;
                 using (var session = NH.OpenSession())
                 {

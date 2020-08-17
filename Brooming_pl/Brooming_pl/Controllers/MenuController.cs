@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Brooming_pl.BusinessLogic;
+using Brooming_pl.DBClasses;
 using Brooming_pl.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,16 @@ namespace Brooming_pl.Controllers
             UserOptions.AddCar(carRegisterDTO);
         }
         
-        
+        [HttpPost("AddRating")]
+        public void AddRating([FromBody] AddRatingDTO addRatingDTO)
+        {
+            UserOptions.AddRating(addRatingDTO);
+        }
+
+        [HttpGet("GetUser")]
+        public Users GetUser([FromBody] GetUserDTO getUserDTO)
+        {
+            return UserOptions.GetUsers(getUserDTO.UserId);
+        }
     }
 }
