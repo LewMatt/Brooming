@@ -39,9 +39,9 @@ namespace Brooming_pl.BusinessLogic
                 Company company = new Company();
                 using (var session = NH.OpenSession())
                 {
-                    if (null != session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).FirstOrDefault())
+                    if (null != session.Query<Company>().Where(x => x.CompanyAgents.ToList().Contains(user)).FirstOrDefault())
                     {
-                        company = session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).FirstOrDefault();
+                        company = session.Query<Company>().Where(x => x.CompanyAgents.ToList().Contains(user)).FirstOrDefault();
                     }
                     else if (null != session.Query<Company>().Where(x => x.CompanyAdmin == user).FirstOrDefault())
                     {
@@ -127,7 +127,7 @@ namespace Brooming_pl.BusinessLogic
 
                 
                 Users user = GetUsers(carRegisterDTO.UserId);
-                Company company = GetUser;
+                Company company = GetUserCompany(user);
 
 
                 Cars car = new Cars();
@@ -172,7 +172,8 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static CompanyDTO RegisterCompany(CompanyDTO companyDTO) 
+
+        public static CompanyDTO RegisterCompany(CompanyDTO companyDTO)
         {
             try
             {
@@ -180,11 +181,11 @@ namespace Brooming_pl.BusinessLogic
                 Company company = new Company();
                 company.CompanyName = companyDTO.CompanyName;
                 company.CompanyAdmin = user;
-                company.Adress = companyDTO.Adress;
+                company.Adress = companyDTO.CompanyAdress;
                 company.TaxNumber = companyDTO.TaxNumber;
                 using (var session = NH.OpenSession())
                 {
-                    if (null != session.Query<Company>().Where(x => x.CompanyName == companyDTO.CompanyName).FirstOrDefault())
+                    if (session.Query<Company>().Where(x => x.CompanyName == companyDTO.CompanyName).Count() != 0)
                     {
                         throw new UsersExceptions("This company already exists");
                     }
