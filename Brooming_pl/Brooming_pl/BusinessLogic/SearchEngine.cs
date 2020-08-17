@@ -11,12 +11,12 @@ namespace Brooming_pl.BusinessLogic
 {
     public class SearchEngine
     {
-        public static List<Offers> Search(SearchOptionsDTO searchOptions) //nie skończone
+        public static List<Offers> Search(SearchOptionsDTO searchOptions) 
         {
             try
             {
-                List<Offers> result = new List<Offers>();
-
+                List<Offers> offers = new List<Offers>();
+                List<OfferElements> elems = new List<OfferElements>();
                 using (var session = NH.OpenSession())
                 {
                     var results = session.Query<OfferElements>().Where(x=>x.TakeLocation==searchOptions.TakeLocation).Fetch(x=>x.Cars).ThenFetch(x=>x.CarType).ToFuture();
@@ -24,12 +24,64 @@ namespace Brooming_pl.BusinessLogic
                     {
                         results= session.Query<OfferElements>().Where(x => x.Cars.CarType.Type == searchOptions.CarType).ToFuture();
                     }
-                    var offers = results.ToList();
+                    if (!String.IsNullOrEmpty(searchOptions.CarBrand))
+                    {
+                        results = session.Query<OfferElements>().Where(x => x.Cars.CarType.Brand == searchOptions.CarBrand).ToFuture();
+                    }
+                    if (!String.IsNullOrEmpty(searchOptions.CarModel))
+                    {
+                        results = session.Query<OfferElements>().Where(x => x.Cars.CarType.Model == searchOptions.CarModel).ToFuture();
+                    }
+                    if (!String.IsNullOrEmpty(searchOptions.CarColor))
+                    {
+                        results = session.Query<OfferElements>().Where(x => x.Cars.CarType.Color == searchOptions.CarColor).ToFuture();
+                    }
+                    if (!String.IsNullOrEmpty(searchOptions.CarTransmission))
+                    {
+                        results = session.Query<OfferElements>().Where(x => x.Cars.CarType.Transmission == searchOptions.CarTransmission).ToFuture();
+                    }
+                    if (!String.IsNullOrEmpty(searchOptions.CarFuel))
+                    {
+                        results = session.Query<OfferElements>().Where(x => x.Cars.CarType.Fuel == searchOptions.CarFuel).ToFuture();
+                    }
+                    if (!String.IsNullOrEmpty(searchOptions.CarPower))
+                    {
+                        results = session.Query<OfferElements>().Where(x => x.Cars.CarType.Power == searchOptions.CarPower).ToFuture();
+                    }
+                    if (null != searchOptions.CarCapacity)
+                    {
+                        results = session.Query<OfferElements>().Where(x => x.Cars.CarType.Capacity == searchOptions.CarCapacity).ToFuture();
+                    }
+                    if (null != searchOptions.CarDoorQuantity)
+                    {
+                        results = session.Query<OfferElements>().Where(x => x.Cars.CarType.DoorQuantity == searchOptions.CarDoorQuantity).ToFuture();
+                    }
+                    if (null != searchOptions.CarSeatQuantity)
+                    {
+                        results = session.Query<OfferElements>().Where(x => x.Cars.CarType.SeatQuantity == searchOptions.CarSeatQuantity).ToFuture();
+                    }
+                    if (!String.IsNullOrEmpty(searchOptions.ReturnLocation))
+                    {
+                        results = session.Query<OfferElements>().Where(x => x.ReturnLocation == searchOptions.ReturnLocation).ToFuture();
+                    }
+                    if (null != searchOptions.StartTime)
+                    {
+                        results = session.Query<OfferElements>().Where(x => x.StartTime >= searchOptions.StartTime).ToFuture();
+                    }
+                    if (null != searchOptions.EndTime)
+                    {
+                        results = session.Query<OfferElements>().Where(x => x.EndTime >= searchOptions.EndTime).ToFuture();
+                    }
+                    if (null != searchOptions.DailyPrice)
+                    {
+                        results = session.Query<OfferElements>().Where(x => x.DailyPrice < searchOptions.DailyPrice).ToFuture();
+                    }
+                    elems = results.Skip((searchOptions.Page-1) * 10).Take(10).ToList();
+                    var a = elems.Select(x => x.OfferId).ToList();
+
+                    offers = session.Query<Offers>().Where(x => elems.Select(y => y.Offers).Contains(x)).ToList();
                 }
-
-
-
-                return result;
+                return offers;
             }
             catch(Exception e)
             {
