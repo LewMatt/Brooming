@@ -11,7 +11,7 @@ namespace Brooming_pl.BusinessLogic
 {
     public class SearchEngine
     {
-        public static List<Offers> Search(SearchOptionsDTO searchOptions)
+        public static List<Offers> Search(SearchOptionsDTO searchOptions) //nie skończone
         {
             try
             {
