@@ -61,5 +61,12 @@ namespace Brooming_pl.Controllers
         {
             return UserOptions.GetMyOffersUser(getUserDTO);
         }
+
+        [HttpGet("GetMyRating")]
+        public RatingSummaryDTO GetMyRating([FromBody] RatingSummaryDTO ratingSummaryDTO)
+        {
+            return UserOptions.GetMyRating(ratingSummaryDTO);
+        }
+
     }
 }
