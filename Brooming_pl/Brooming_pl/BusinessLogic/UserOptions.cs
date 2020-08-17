@@ -327,14 +327,14 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }   
-        public static List<Ratings> GetMyRatingsCompany(Company company)
+        public static List<Ratings> GetMyRatingsCompany(CompanyIdDTO companyIdDTO)
         {
             try
             {
                 List<Ratings> ratingsList = new List<Ratings>();
                 using (var session = NH.OpenSession())
                 {
-                    ratingsList = session.Query<Ratings>().Where(x => x.Company == company).ToList();
+                    ratingsList = session.Query<Ratings>().Where(x => x.Company.CompanyId == companyIdDTO.CompanyId).ToList();
                     if (ratingsList == null)
                     {
                         throw new UsersExceptions("This company have no ratings");

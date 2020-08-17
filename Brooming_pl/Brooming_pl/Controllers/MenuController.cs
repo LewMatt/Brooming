@@ -49,5 +49,11 @@ namespace Brooming_pl.Controllers
         {
             return UserOptions.GetMyCarsCompany(companyIdDTO.CompanyId);
         }
+
+        [HttpGet("GetMyCompanyRatings")]
+        public List<Ratings> GetMyCompanyRatings([FromBody] CompanyIdDTO companyIdDTO)
+        {
+            return UserOptions.GetMyRatingsCompany(companyIdDTO);
+        }
     }
 }
