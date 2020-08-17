@@ -178,17 +178,17 @@ namespace Brooming_pl.BusinessLogic
                 return companyDTO;
             }
         }
-        public static void RemoveCar( Cars car)
+        public static void RemoveCar(CarIdDTO carIdDTO)
         {
             try
             {
                 using (var session = NH.OpenSession())
                 {
-                    if(null == session.Query<Cars>().Where(x => x.CarId == car.CarId).FirstOrDefault())
+                    if(null == session.Query<Cars>().Where(x => x.CarId == carIdDTO.CarId).FirstOrDefault())
                     {
                         throw new UsersExceptions("Car does not exist");
                     }
-                    session.Delete(session.Query<Cars>().Where(x => x.CarId == car.CarId).FirstOrDefault()); 
+                    session.Delete(session.Query<Cars>().Where(x => x.CarId == carIdDTO.CarId).FirstOrDefault()); 
                 }
             }
             catch (Exception)

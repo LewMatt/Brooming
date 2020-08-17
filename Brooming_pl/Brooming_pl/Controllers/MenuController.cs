@@ -68,5 +68,11 @@ namespace Brooming_pl.Controllers
             return UserOptions.GetMyRating(ratingSummaryDTO);
         }
 
+        [HttpPost("RemoveCar")]
+        public void RemoveCar([FromBody] CarIdDTO carIdDTO)
+        {
+            UserOptions.RemoveCar(carIdDTO);
+        }
+
     }
 }
