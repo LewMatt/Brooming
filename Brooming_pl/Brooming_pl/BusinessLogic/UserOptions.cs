@@ -95,13 +95,10 @@ namespace Brooming_pl.BusinessLogic
                 carType.SeatQuantity = carRegisterDTO.SeatQuantity;
                 CarType existing = new CarType();
 
-                Company company = new Company();
-                Users user = new Users();
-                using (var session = NH.OpenSession())
-                {
-                    company = session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).FirstOrDefault();
-                    user = session.Query<Users>().Where(x => x.UserId == carRegisterDTO.UserId).FirstOrDefault();
-                }
+                
+                Users user = GetUsers(carRegisterDTO.UserId);
+                Company company = GetUser;
+
 
                 Cars car = new Cars();
                 car.Users = user;
