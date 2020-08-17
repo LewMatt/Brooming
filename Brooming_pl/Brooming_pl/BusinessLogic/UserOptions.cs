@@ -39,9 +39,9 @@ namespace Brooming_pl.BusinessLogic
                 Company company = new Company();
                 using (var session = NH.OpenSession())
                 {
-                    if (0 != session.Query<Company>().Where(x => x.CompanyAgents == user).Count())
+                    if (0 != session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).Count())
                     {
-                        company = session.Query<Company>().Where(x => x.CompanyAgents == user).FirstOrDefault();
+                        company = session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).FirstOrDefault();
                     }
                     else if (0 != session.Query<Company>().Where(x => x.CompanyAdmin == user).Count())
                     {
@@ -180,7 +180,7 @@ namespace Brooming_pl.BusinessLogic
                 Company company = new Company();
                 company.CompanyName = companyDTO.CompanyName;
                 company.CompanyAdmin = user;
-                company.Adress = companyDTO.Adress;
+                company.Adress = companyDTO.CompanyAdress;
                 company.TaxNumber = companyDTO.TaxNumber;
                 using (var session = NH.OpenSession())
                 {
