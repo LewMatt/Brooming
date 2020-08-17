@@ -80,6 +80,27 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
+
+        //public static List<Cars> GetMyCarsUserr(int userId)
+        //{
+        //    try
+        //    {
+        //        List<Cars> carList = new List<Cars>();
+        //        using (var session = NH.OpenSession())
+        //        {
+        //            carList = session.Query<Cars>().Where(x => x.Users.UserId == userId).ToList();
+        //            if (carList == null)
+        //            {
+        //                throw new UsersExceptions("This user have no cars");
+        //            }
+        //        }
+        //        return carList;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw new System.Exception("Unknown exception");
+        //    }
+        //}
         public static List<Cars> GetMyCarsCompany(int companyId) 
         {
             try
