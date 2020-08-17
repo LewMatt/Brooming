@@ -180,7 +180,7 @@ namespace Brooming_pl.BusinessLogic
                 Company company = new Company();
                 company.CompanyName = companyDTO.CompanyName;
                 company.CompanyAdmin = user;
-                company.Adress = companyDTO.Adress;
+                company.Adress = companyDTO.CompanyAdress;
                 company.TaxNumber = companyDTO.TaxNumber;
                 using (var session = NH.OpenSession())
                 {
