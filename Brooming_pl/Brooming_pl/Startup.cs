@@ -35,9 +35,9 @@ namespace Brooming_pl
                 NH.Init(connStr);
 
             }
-            catch (Exception)
+            catch (Exception es )
             {
-
+                throw es;
             }
             //kod: var users= Session.query<users>().where(.=>..user_id=10).firstorde(
             services.AddControllers();
