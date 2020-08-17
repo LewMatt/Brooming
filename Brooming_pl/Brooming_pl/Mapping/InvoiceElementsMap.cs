@@ -34,6 +34,8 @@ namespace Brooming_pl.mapping
                 map.Cascade(Cascade.None);
             });
 
+            //Bag(x => x.Invoices, colmap => { colmap.Key(x => x.Column("invoice_id")); colmap.Inverse(true); }, map => { map.OneToMany(typeo); });
+
             //ManyToOne(x => x.Invoices, map =>
             //{
             //    map.Column("invoice_id");

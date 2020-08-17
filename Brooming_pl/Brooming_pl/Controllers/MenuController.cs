@@ -19,13 +19,13 @@ namespace Brooming_pl.Controllers
         {
             return UserOptions.RegisterCompany(companyDTO);
         }
-        
+
         [HttpPost("AddCar")]
         public void AddCar([FromBody] CarRegisterDTO carRegisterDTO)
         {
             UserOptions.AddCar(carRegisterDTO);
         }
-        
+
         [HttpPost("AddRating")]
         public void AddRating([FromBody] AddRatingDTO addRatingDTO)
         {
@@ -43,5 +43,36 @@ namespace Brooming_pl.Controllers
         {
             return UserOptions.GetMyCarsUser(getUserDTO.UserId);
         }
+
+        [HttpGet("GetMyCompanyCars")]
+        public List<Cars> GetMyCompanyCars([FromBody] CompanyIdDTO companyIdDTO)
+        {
+            return UserOptions.GetMyCarsCompany(companyIdDTO.CompanyId);
+        }
+
+        [HttpGet("GetMyCompanyRatings")]
+        public List<Ratings> GetMyCompanyRatings([FromBody] CompanyIdDTO companyIdDTO)
+        {
+            return UserOptions.GetMyRatingsCompany(companyIdDTO);
+        }
+
+        [HttpGet("GetMyOffers")]
+        public List<Offers> GetMyOffers([FromBody] GetUserDTO getUserDTO)
+        {
+            return UserOptions.GetMyOffersUser(getUserDTO);
+        }
+
+        [HttpGet("GetMyRating")]
+        public RatingSummaryDTO GetMyRating([FromBody] RatingSummaryDTO ratingSummaryDTO)
+        {
+            return UserOptions.GetMyRating(ratingSummaryDTO);
+        }
+
+        [HttpPost("RemoveCar")]
+        public void RemoveCar([FromBody] CarIdDTO carIdDTO)
+        {
+            UserOptions.RemoveCar(carIdDTO);
+        }
+
     }
 }

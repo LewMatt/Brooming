@@ -80,14 +80,14 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static List<Cars> GetMyCarsCompany(Company company) 
+        public static List<Cars> GetMyCarsCompany(int companyId) 
         {
             try
             {
                 List<Cars> carList = new List<Cars>();
                 using (var session = NH.OpenSession())
                 {
-                    carList = session.Query<Cars>().Where(x => x.Company == company).ToList();
+                    carList = session.Query<Cars>().Where(x => x.Company.CompanyId == companyId).ToList();
                     if (carList == null)
                     {
                         throw new UsersExceptions("This company have no cars");
@@ -125,13 +125,10 @@ namespace Brooming_pl.BusinessLogic
                 carType.SeatQuantity = carRegisterDTO.SeatQuantity;
                 CarType existing = new CarType();
 
-                Company company = new Company();
-                Users user = new Users();
-                using (var session = NH.OpenSession())
-                {
-                    company = session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).FirstOrDefault();
-                    user = session.Query<Users>().Where(x => x.UserId == carRegisterDTO.UserId).FirstOrDefault();
-                }
+                
+                Users user = GetUsers(carRegisterDTO.UserId);
+                Company company = GetUser;
+
 
                 Cars car = new Cars();
                 car.Users = user;
@@ -208,17 +205,17 @@ namespace Brooming_pl.BusinessLogic
                 return companyDTO;
             }
         }
-        public static void RemoveCar( Cars car)
+        public static void RemoveCar(CarIdDTO carIdDTO)
         {
             try
             {
                 using (var session = NH.OpenSession())
                 {
-                    if(null == session.Query<Cars>().Where(x => x.CarId == car.CarId).FirstOrDefault())
+                    if(null == session.Query<Cars>().Where(x => x.CarId == carIdDTO.CarId).FirstOrDefault())
                     {
                         throw new UsersExceptions("Car does not exist");
                     }
-                    session.Delete(session.Query<Cars>().Where(x => x.CarId == car.CarId).FirstOrDefault()); 
+                    session.Delete(session.Query<Cars>().Where(x => x.CarId == carIdDTO.CarId).FirstOrDefault()); 
                 }
             }
             catch (Exception)
@@ -357,14 +354,14 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }   
-        public static List<Ratings> GetMyRatingsCompany(Company company)
+        public static List<Ratings> GetMyRatingsCompany(CompanyIdDTO companyIdDTO)
         {
             try
             {
                 List<Ratings> ratingsList = new List<Ratings>();
                 using (var session = NH.OpenSession())
                 {
-                    ratingsList = session.Query<Ratings>().Where(x => x.Company == company).ToList();
+                    ratingsList = session.Query<Ratings>().Where(x => x.Company.CompanyId == companyIdDTO.CompanyId).ToList();
                     if (ratingsList == null)
                     {
                         throw new UsersExceptions("This company have no ratings");
@@ -377,14 +374,14 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static List<Offers> GetMyOffersUser(int userId)
+        public static List<Offers> GetMyOffersUser(GetUserDTO getUserDTO)
         {
             try
             {
                 List<Offers> offersList = new List<Offers>();
                 using (var session = NH.OpenSession())
                 {
-                    offersList = session.Query<Offers>().Where(x => x.Users.UserId == userId).ToList();
+                    offersList = session.Query<Offers>().Where(x => x.Users.UserId == getUserDTO.UserId).ToList();
                     if (offersList == null)
                     {
                         throw new UsersExceptions("This user have no offers");

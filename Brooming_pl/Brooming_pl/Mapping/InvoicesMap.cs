@@ -46,6 +46,13 @@ namespace Brooming_pl.mapping
 
             Bag(x => x.InvoiceElements, colmap => { colmap.Key(x => x.Column("invoice_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
 
+            //ManyToOne(x => x.InvoiceElements, map =>
+            //{
+            //    map.Column("invoice_id");
+            //    map.PropertyRef("InvoiceId");
+            //    map.Cascade(Cascade.None);
+            //});
+
             Bag(x => x.HistoryOfOrders, colmap => { colmap.Key(x => x.Column("invoice_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
             Bag(x => x.Payments, colmap => { colmap.Key(x => x.Column("invoice_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
         }
