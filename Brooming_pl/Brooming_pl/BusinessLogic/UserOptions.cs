@@ -347,14 +347,14 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static List<Offers> GetMyOffersUser(int userId)
+        public static List<Offers> GetMyOffersUser(GetUserDTO getUserDTO)
         {
             try
             {
                 List<Offers> offersList = new List<Offers>();
                 using (var session = NH.OpenSession())
                 {
-                    offersList = session.Query<Offers>().Where(x => x.Users.UserId == userId).ToList();
+                    offersList = session.Query<Offers>().Where(x => x.Users.UserId == getUserDTO.UserId).ToList();
                     if (offersList == null)
                     {
                         throw new UsersExceptions("This user have no offers");
