@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using NHibernate.Linq;
 using NHibernate.Linq.ExpressionTransformers;
+using NHibernate.Type;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,35 @@ namespace Brooming_pl.BusinessLogic
             {
                 throw e;
             }
+        }
+        public static Company GetUserCompany(Users user)
+        {
+            try
+            {
+                Company company = new Company();
+                using (var session = NH.OpenSession())
+                {
+                    if (null != session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).FirstOrDefault())
+                    {
+                        company = session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).FirstOrDefault();
+                    }
+                    else if (null != session.Query<Company>().Where(x => x.CompanyAdmin == user).FirstOrDefault())
+                    {
+                        company = session.Query<Company>().Where(x => x.CompanyAdmin == user).FirstOrDefault();
+                    }
+                    else
+                    {
+                        throw new UsersExceptions("This user is not part of any company");
+                    }
+                    
+                }
+                return company;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
         }
         public static List<Cars> GetMyCarsUser(int userId) {
             try
