@@ -34,13 +34,13 @@ namespace Brooming_pl.mapping
                 map.Cascade(Cascade.None);
             });
 
-            ManyToOne(x => x.Invoices, map =>
-            {
-                map.Column("invoice_id");
-                map.PropertyRef("InvoiceId");
-                map.NotNullable(true);
-                map.Cascade(Cascade.None);
-            });
+            //ManyToOne(x => x.Invoices, map =>
+            //{
+            //    map.Column("invoice_id");
+            //    map.PropertyRef("InvoiceId");
+            //    map.NotNullable(true);
+            //    map.Cascade(Cascade.None);
+            //});
 
         }
     }

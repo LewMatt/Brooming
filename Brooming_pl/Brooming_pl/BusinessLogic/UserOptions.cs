@@ -50,14 +50,14 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static List<Cars> GetMyCarsCompany(Company company) 
+        public static List<Cars> GetMyCarsCompany(int companyId) 
         {
             try
             {
                 List<Cars> carList = new List<Cars>();
                 using (var session = NH.OpenSession())
                 {
-                    carList = session.Query<Cars>().Where(x => x.Company == company).ToList();
+                    carList = session.Query<Cars>().Where(x => x.Company.CompanyId == companyId).ToList();
                     if (carList == null)
                     {
                         throw new UsersExceptions("This company have no cars");
