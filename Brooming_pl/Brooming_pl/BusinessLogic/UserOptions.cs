@@ -39,9 +39,9 @@ namespace Brooming_pl.BusinessLogic
                 Company company = new Company();
                 using (var session = NH.OpenSession())
                 {
-                    if (0 != session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).Count())
+                    if ( session.Query<Company>().Where(x => x.CompanyAgents.Any(x=>x.UserId==user.UserId)).FirstOrDefault()!=null)
                     {
-                        company = session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).FirstOrDefault();
+                        company = session.Query<Company>().Where(x => x.CompanyAgents.Any(x => x.UserId == user.UserId)).FirstOrDefault();
                     }
                     else if (0 != session.Query<Company>().Where(x => x.CompanyAdmin == user).Count())
                     {
