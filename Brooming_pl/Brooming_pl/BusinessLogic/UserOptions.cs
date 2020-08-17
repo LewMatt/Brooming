@@ -39,11 +39,11 @@ namespace Brooming_pl.BusinessLogic
                 Company company = new Company();
                 using (var session = NH.OpenSession())
                 {
-                    if (null != session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).FirstOrDefault())
+                    if (0 != session.Query<Company>().Where(x => x.CompanyAgents == user).Count())
                     {
-                        company = session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).FirstOrDefault();
+                        company = session.Query<Company>().Where(x => x.CompanyAgents == user).FirstOrDefault();
                     }
-                    else if (null != session.Query<Company>().Where(x => x.CompanyAdmin == user).FirstOrDefault())
+                    else if (0 != session.Query<Company>().Where(x => x.CompanyAdmin == user).Count())
                     {
                         company = session.Query<Company>().Where(x => x.CompanyAdmin == user).FirstOrDefault();
                     }
@@ -127,7 +127,7 @@ namespace Brooming_pl.BusinessLogic
 
                 
                 Users user = GetUsers(carRegisterDTO.UserId);
-                Company company = GetUser;
+                Company company = GetUserCompany(user);
 
 
                 Cars car = new Cars();
