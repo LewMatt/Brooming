@@ -26,13 +26,13 @@ namespace Brooming_pl.mapping
             Property(x => x.StartTime, map => map.Column("start_time"));
             Property(x => x.EndTime, map => map.Column("end_time"));
             Property(x => x.AdditionalInfo, map => map.Column("additional_info"));
-            //ManyToOne(x => x.Cars, map =>
-            //{
-            //    map.Column("car_id");
-            //    map.PropertyRef("CarId");
-            //    map.NotNullable(true);
-            //    map.Cascade(Cascade.None);
-            //});
+            ManyToOne(x => x.Cars, map =>
+            {
+                map.Column("car_id");
+                map.PropertyRef("CarId");
+                map.NotNullable(true);
+                map.Cascade(Cascade.None);
+            });
 
             //ManyToOne(x => x.Invoices, map =>
             //{
