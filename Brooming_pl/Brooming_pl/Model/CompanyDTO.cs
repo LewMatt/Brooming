@@ -13,7 +13,7 @@ namespace Brooming_pl.Model
         [DataMember]
         public string CompanyName { set; get; }
         [DataMember]
-        public string Adress { set; get; }
+        public string CompanyAdress { set; get; }
         [DataMember]
         public string TaxNumber { set; get; }
         [DataMember]
