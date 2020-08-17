@@ -25,6 +25,10 @@ namespace Brooming_pl.Controllers
             UserOptions.AddCar(carRegisterDTO);
         }
         
-        
+        [HttpPost("AddRating")]
+        public void AddRating([FromBody] AddRatingDTO addRatingDTO)
+        {
+            UserOptions.AddRating(addRatingDTO);
+        }
     }
 }
