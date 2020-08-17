@@ -18,5 +18,13 @@ namespace Brooming_pl.Controllers
         {
             return UserOptions.RegisterCompany(companyDTO);
         }
+
+        [HttpPost("AddCar")]
+        public void AddCar([FromBody] CarRegisterDTO carRegisterDTO)
+        {
+            UserOptions.AddCar(carRegisterDTO);
+        }
+
+
     }
 }

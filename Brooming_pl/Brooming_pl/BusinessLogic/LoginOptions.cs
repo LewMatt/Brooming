@@ -46,9 +46,6 @@ namespace Brooming_pl.BusinessLogic
                     EMail = user.EMail,
                     LinkToAvatar = user.LinkToAvatar,
                     Role = user.Role,
-                    
-
-
                 };
 
                 return dtoObj;

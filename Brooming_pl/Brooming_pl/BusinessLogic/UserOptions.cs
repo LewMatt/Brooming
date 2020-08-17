@@ -70,29 +70,29 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static void AddCar(int userId, CarDTO carDTO)
+        public static void AddCar(CarRegisterDTO carRegisterDTO)
         {
             try
             {
                 using (var session = NH.OpenSession())
                 {
-                    if (null != session.Query<Cars>().Where(x => x.RegistrationNumber == carDTO.RegistrationNumber).FirstOrDefault())
+                    if (null != session.Query<Cars>().Where(x => x.RegistrationNumber == carRegisterDTO.RegistrationNumber).FirstOrDefault())
                     {
                         throw new UsersExceptions("Car with this registration number already exists");
                     }
                 }
                 CarType carType = new CarType();
-                carType.Type = carDTO.Type;
-                carType.Brand = carDTO.Brand;
-                carType.Model = carDTO.Model;
-                carType.Color = carDTO.Color;
-                carType.Transmission = carDTO.Transmission;
-                carType.Fuel = carDTO.Fuel;
-                carType.FuelUsage = carDTO.FuelUsage;
-                carType.Power = carDTO.Power;
-                carType.Capacity = carDTO.Capacity;
-                carType.DoorQuantity = carDTO.DoorQuantity;
-                carType.SeatQuantity = carDTO.SeatQuantity;
+                carType.Type = carRegisterDTO.Type;
+                carType.Brand = carRegisterDTO.Brand;
+                carType.Model = carRegisterDTO.Model;
+                carType.Color = carRegisterDTO.Color;
+                carType.Transmission = carRegisterDTO.Transmission;
+                carType.Fuel = carRegisterDTO.Fuel;
+                carType.FuelUsage = carRegisterDTO.FuelUsage;
+                carType.Power = carRegisterDTO.Power;
+                carType.Capacity = carRegisterDTO.Capacity;
+                carType.DoorQuantity = carRegisterDTO.DoorQuantity;
+                carType.SeatQuantity = carRegisterDTO.SeatQuantity;
                 CarType existing = new CarType();
 
                 Company company = new Company();
@@ -100,16 +100,16 @@ namespace Brooming_pl.BusinessLogic
                 using (var session = NH.OpenSession())
                 {
                     company = session.Query<Company>().Where(x => x.CompanyAgents.Contains(user)).FirstOrDefault();
-                    user = session.Query<Users>().Where(x => x.UserId == userId).FirstOrDefault();
+                    user = session.Query<Users>().Where(x => x.UserId == carRegisterDTO.UserId).FirstOrDefault();
                 }
 
                 Cars car = new Cars();
                 car.Users = user;
                 car.Company = company;
-                car.RegistrationNumber = carDTO.RegistrationNumber;
-                car.YearOfProduction = carDTO.YearOfProduction;
-                car.Description = carDTO.Description;
-                car.LinkToPhoto = carDTO.LinkToPhoto;
+                car.RegistrationNumber = carRegisterDTO.RegistrationNumber;
+                car.YearOfProduction = carRegisterDTO.YearOfProduction;
+                car.Description = carRegisterDTO.Description;
+                car.LinkToPhoto = carRegisterDTO.LinkToPhoto;
                 car.Availability = 1;
 
                 using (var session = NH.OpenSession())
@@ -123,12 +123,20 @@ namespace Brooming_pl.BusinessLogic
                     {
                         car.CarType = existing;
                         session.Save(car);
+                        using (var transaction = session.BeginTransaction())
+                        {
+                            transaction.Commit();
+                        }
                     }
                     else 
                     {
                         session.Save(carType);
                         car.CarType = carType;
                         session.Save(car);
+                        using (var transaction = session.BeginTransaction())
+                        {
+                            transaction.Commit();
+                        }
                     }
                 }
             }
