@@ -37,5 +37,11 @@ namespace Brooming_pl.Controllers
         {
             return UserOptions.GetUsers(getUserDTO.UserId);
         }
+
+        [HttpGet("GetMyCars")]
+        public List<Cars> GetMyCars([FromBody] GetUserDTO getUserDTO)
+        {
+            return UserOptions.GetMyCarsUser(getUserDTO.UserId);
+        }
     }
 }
