@@ -28,13 +28,6 @@ namespace Brooming_pl.mapping
             Property(x => x.Discounts);
             Property(x => x.Vat);
 
-            Set(x => x.InvoiceElements, colmap =>
-            {
-                colmap.Cascade(Cascade.All);
-                colmap.Lazy(CollectionLazy.NoLazy);
-                colmap.Key(x => x.Column("invoice_id"));
-                colmap.Inverse(true);
-            }, map => { map.OneToMany(x => x.Class(typeof(InvoiceElements))); });
 
             ManyToOne(x => x.Users, map =>
             {
@@ -50,6 +43,8 @@ namespace Brooming_pl.mapping
                 map.NotNullable(true);
                 map.Cascade(Cascade.None);
             });
+
+            Bag(x => x.InvoiceElements, colmap => { colmap.Key(x => x.Column("invoice_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
 
             Bag(x => x.HistoryOfOrders, colmap => { colmap.Key(x => x.Column("invoice_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
             Bag(x => x.Payments, colmap => { colmap.Key(x => x.Column("invoice_id")); colmap.Inverse(true); }, map => { map.OneToMany(); });
