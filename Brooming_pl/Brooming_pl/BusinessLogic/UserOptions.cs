@@ -266,7 +266,7 @@ namespace Brooming_pl.BusinessLogic
                 rate.Users = user;
                 using (var session = NH.OpenSession())
                 {
-                    if (null != session.Query<Ratings>().Where(x => x.Users == user).Where(x => x.Company == company))
+                    if (null != session.Query<Ratings>().Where(x => x.Users == user).Where(x => x.Company.CompanyId == company.CompanyId).FirstOrDefault())
                     {
                         throw new UsersExceptions("This user already rated this company");
                     }
@@ -291,9 +291,9 @@ namespace Brooming_pl.BusinessLogic
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new System.Exception("Unknown exception");
+                throw ex;
             }
 
         }
