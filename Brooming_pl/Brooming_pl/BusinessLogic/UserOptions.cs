@@ -121,7 +121,7 @@ namespace Brooming_pl.BusinessLogic
                 throw new System.Exception("Unknown exception");
             }
         }
-        public static void AddCar(CarRegisterDTO carRegisterDTO)
+        public void AddCar(CarRegisterDTO carRegisterDTO)
         {
             try
             {

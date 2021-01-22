@@ -14,6 +14,12 @@ namespace Brooming_pl.Controllers
     [ApiController]
     public class MenuController : ControllerBase
     {
+        UserOptions _userOptions;
+        public MenuController()
+        {
+            _userOptions = new UserOptions();
+        }
+
         [HttpPost("AddCompany")]
         public CompanyDTO AddCompany([FromBody] CompanyDTO companyDTO)
         {
@@ -21,9 +27,20 @@ namespace Brooming_pl.Controllers
         }
 
         [HttpPost("AddCar")]
-        public void AddCar([FromBody] CarRegisterDTO carRegisterDTO)
+        public ActionResult AddCar([FromBody] CarRegisterDTO carRegisterDTO)
         {
-            UserOptions.AddCar(carRegisterDTO);
+            try
+            {
+                //UserOptions.AddCar(carRegisterDTO);
+                _userOptions.AddCar(carRegisterDTO);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
+            
+            
         }
 
         [HttpPost("AddRating")]
